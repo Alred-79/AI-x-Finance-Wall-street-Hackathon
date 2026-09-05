@@ -17,6 +17,7 @@ import yaml
 from ..catalog.loader import get_catalog
 from ..config import settings
 from ..llm import json_call
+from ..observability import prism
 from ..store.db import Store
 from .derive import question_states
 
@@ -145,7 +146,8 @@ def draft_exceptions(store: Store, max_items: int = 8) -> list[dict]:
         s = states[e["qid"]]
         user = (f"QUESTION {s['qid']}: {s['text']}\nBUYER RULE: {s['rule_if_no']}\nDERIVED ANSWER: {s['answer']}\nCOMMENTS: {s['comments']}\n"
                 f"OWNER ROLE: {s['owner_role']}\nEVIDENCE USED:\n" + "\n".join(f"- [{ev['doc']}] {ev['statement']}" for ev in s["evidence"]))
-        d = json_call(EXC_SYSTEM, user, model=settings.model_agent, max_tokens=900)
+        with prism.step("exception_draft", qid=s["qid"]):
+            d = json_call(EXC_SYSTEM, user, model=settings.model_agent, max_tokens=900)
         return {"qid": s["qid"], "text": s["text"], **{k: d.get(k, "") for k in ("justification", "mitigating_controls", "remediation_plan", "evidence_to_attach")}}
 
     out = []

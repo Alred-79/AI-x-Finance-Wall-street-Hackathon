@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { ChatCircleText, ClipboardText, Database, Download, FileText, FlowArrow, Moon, Scales, Sun } from '@phosphor-icons/react'
+import { ChatCircleText, ClipboardText, Database, Download, FileText, FlowArrow, Moon, Scales, Sun, Waveform } from '@phosphor-icons/react'
 import { api, pollJob } from './lib/api'
 import { prefetch, readCache, writeCache } from './lib/cache'
 import { toggleTheme } from './lib/theme'
@@ -10,6 +10,7 @@ import QuestionnaireView from './views/QuestionnaireView'
 import BuyerView from './views/BuyerView'
 import WorkflowsView from './views/WorkflowsView'
 import DataView from './views/DataView'
+import PrismView from './views/PrismView'
 
 const uid = () => Math.random().toString(36).slice(2, 10)
 // [key, short label for the mobile tab bar, icon, long label for the desktop nav, show in the mobile tab bar]
@@ -19,6 +20,7 @@ const NAV = [
   ['workflows', 'Workflows', FlowArrow, 'Workflows', true],
   ['data', 'Data', Database, 'Data', true],
   ['buyer', 'Buyer', Scales, "Buyer's view", true],
+  ['prism', 'PRISM', Waveform, 'PRISM', false],
 ]
 
 export default function App() {
@@ -117,6 +119,13 @@ export default function App() {
           </nav>
           <div className="ml-auto flex items-center gap-0.5 sm:gap-1">
             {job ? <div className="mr-2 hidden max-w-[320px] lg:block"><JobProgress job={job} compact /></div> : null}
+            {/* Offline inference is a selling point for this product in particular: the corpus being
+                reasoned over is the company's own security posture. Say so where it is visible. */}
+            {status?.inference?.local ? (
+              <Tag tone="signal" className="mr-1 hidden md:inline-flex" title={`Inference on this machine via ${status.inference.base_url} — no document text leaves the device`}>
+                Offline
+              </Tag>
+            ) : null}
             <Identity speaker={speaker} setSpeaker={setSpeaker} role={role} setRole={setRole} />
             <a href="/api/export/workbook" className={iconBtn} title="Download the completed workbook (.xlsx)"><Download className="size-4" weight="bold" /></a>
             <a href="/report" target="_blank" rel="noreferrer" className={iconBtn} title="Open the printable report"><FileText className="size-4" weight="bold" /></a>
@@ -141,6 +150,7 @@ export default function App() {
         {view === 'workflows' && <WorkflowsView {...common} />}
         {view === 'data' && <DataView {...common} />}
         {view === 'buyer' && <BuyerView {...common} />}
+        {view === 'prism' && <PrismView {...common} />}
       </main>
 
       <nav className="fixed inset-x-0 bottom-0 z-40 flex border-t border-border bg-bg/92 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl sm:hidden" aria-label="Primary">

@@ -28,6 +28,7 @@ from ..engine.embeddings import index_missing
 from ..export.report import build_report, report_data
 from ..export.workbook import fill_workbook
 from ..ingest.indexer import index_folder
+from ..observability import prism
 from ..research import outside_in
 from ..store.db import loads, now, store
 
@@ -77,15 +78,22 @@ def _status_body(s) -> dict:
         "counts": sc.get("counts"), "predicted_rating": sc.get("predicted_rating"),
         "inherent_points": sc.get("inherent_points"), "max_inherent_points": sc.get("max_inherent_points"),
         "escalations": len(sc.get("escalations", [])), "vendor_criticality": sc.get("vendor_criticality"),
-        "keys": {"openrouter": bool(settings.openrouter_api_key), "tavily": bool(settings.tavily_api_key)},
+        "keys": {"openrouter": bool(settings.openrouter_api_key), "tavily": bool(settings.tavily_api_key), "prism": prism.configured()},
+        "inference": {"base_url": settings.llm_base_url, "local": settings.llm_is_local, "model": settings.model_agent},
         "store": {"dialect": s.dialect, "pgvector": s.has_pgvector, "embeddings": counts["embeddings"], "provider": settings.embedding_provider},
     }
 
 
+@router.get("/prism")
+def prism_status():
+    """PRISM observability: what has been traced, and every time the guardrail overruled the model."""
+    return prism.health()
+
+
 @router.post("/run")
 def run():
-    if not settings.openrouter_api_key:
-        raise HTTPException(400, "OPENROUTER_API_KEY not set")
+    if not settings.llm_api_key:
+        raise HTTPException(400, "No model endpoint configured (OPENROUTER_API_KEY or LLM_BASE_URL)")
     return _job("index", lambda emit: full_run(store(), progress=emit))
 
 

@@ -13,6 +13,7 @@ import re
 from ..catalog.loader import get_catalog
 from ..config import settings
 from ..llm import json_call
+from ..observability import prism
 from ..store.db import Store, now
 from . import tavily_client as tv
 from .probe import probe
@@ -147,7 +148,8 @@ def summary(store: Store) -> dict:
     user = "EXTERNAL FINDINGS:\n" + "\n".join(f"X{x['id']} | {x['kind']} | {x['title']} | {x['url']} | {x['published_at']} | {x['snippet'][:400]} {x['note'] or ''}" for x in ext)
     user += "\n\nINTERNAL CLAIMS (company profile / leadership / location):\n" + "\n".join(f"C{c['id']} | {c['doc']} | {c['statement']}" for c in internal[:80])
     user += f"\n\nVENDOR: legal name per config '{settings.vendor_legal_name}', brand '{settings.vendor_brand}', domain {settings.vendor_domain}."
-    data = json_call(SUMMARY_SYSTEM, user, model=settings.model_agent, max_tokens=3000)
+    with prism.step("outside_in_research"):
+        data = json_call(SUMMARY_SYSTEM, user, model=settings.model_agent, max_tokens=3000)
     data["generated_at"] = now()
     store.kv_set("reputational", data)
     # discrepancies become open conflicts (external vs internal) so the interview picks them up
