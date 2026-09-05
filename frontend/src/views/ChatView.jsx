@@ -69,19 +69,14 @@ export default function ChatView({ status, session, speaker, role, job, actions,
     <div className="mx-auto max-w-[760px] rise">
       {job ? <div className="mb-6"><JobProgress job={job} /></div> : null}
 
-      {!indexed && !job ? (
-        <Panel
-          title="The company's documents haven't been indexed yet"
-          detail="Indexing runs once and is stored — on Postgres/Neon it survives restarts and deploys. It starts automatically on first launch when a key is configured; you can also run it from Workflows."
-          action={<Button variant="accent" onClick={() => actions.workflow('ingest', 'Ingest company documents', 'index')} disabled={!status?.keys?.openrouter} title={status?.keys?.openrouter ? '' : 'Add OPENROUTER_API_KEY to .env first'}>Run the ingest workflow</Button>}
-        />
-      ) : null}
 
-      {indexed && !messages.length && !job ? (
+      {status && !messages.length && !job ? (
         <div className="mb-8">
           <h1 className="display text-[24px] sm:text-[28px]">What would you like to know?</h1>
           <p className="mt-2 text-[15px] text-muted">
-            {c.VERIFIED ?? 0} answers are already verified from documents, {(c.PARTIAL ?? 0) + (c.UNKNOWN ?? 0)} need you, and {c.CONFLICT ?? 0} have sources that disagree. Ask anything, or let me pick what matters most.
+            {indexed
+              ? <>{c.VERIFIED ?? 0} answers are already verified from documents, {(c.PARTIAL ?? 0) + (c.UNKNOWN ?? 0)} need you, and {c.CONFLICT ?? 0} have sources that disagree. Ask anything, or let me pick what matters most.</>
+              : <>Ask anything about the company's security posture. Answers carry receipts; where the documents are silent, I'll say so and tell you who to ask.</>}
           </p>
           <div className="mt-5 flex flex-wrap gap-2">
             {SUGGESTIONS.map((s) => <button key={s} type="button" onClick={() => send(s)} className="rounded-full border border-border px-3.5 py-1.5 text-[14px] text-muted transition-colors hover:border-border-strong hover:text-text">{s}</button>)}
@@ -121,7 +116,7 @@ export default function ChatView({ status, session, speaker, role, job, actions,
         <div ref={endRef} />
       </div>
 
-      {indexed || messages.length ? (
+      {status || messages.length ? (
         <div className="sticky bottom-[calc(76px+env(safe-area-inset-bottom))] mt-8 sm:bottom-4">
           <div className="flex items-end gap-2 rounded-2xl border border-border bg-surface p-2 shadow-[0_12px_32px_-16px_rgba(0,0,0,0.5)]">
             <button type="button" onClick={() => send('What should we cover next? Ask me the single most important open question.')} disabled={busy} className="grid size-10 shrink-0 place-items-center rounded-xl text-muted hover:bg-text/7 hover:text-text disabled:opacity-40" title="Ask me the most important open question">
