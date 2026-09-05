@@ -1,20 +1,21 @@
-import { useEffect, useState } from 'react'
 import { api } from '../lib/api'
 import { Button, Card, Rows, Section, Spinner, Tag, cx } from '../components/ui'
 import JobProgress from '../components/JobProgress'
+import { useResource } from '../lib/cache'
 
 const RATING_TONE = { Low: 'bg-accent text-inverse', Moderate: 'bg-signal text-inverse', High: 'bg-bad text-white', Critical: 'bg-bad text-white' }
 
 export default function BuyerView({ status, actions, job, openQuestion }) {
-  const [sc, setSc] = useState(null)
-  const [exc, setExc] = useState([])
-  useEffect(() => { api.score().then(setSc).catch(() => {}); api.exceptions().then(setExc).catch(() => {}) }, [status?.inherent_points, status?.counts, job?.state])
+  const deps = [status?.inherent_points, status?.counts, job?.state]
+  const { data: sc, refreshing } = useResource('score', api.score, deps)
+  const { data: excData } = useResource('exceptions', api.exceptions, deps)
+  const exc = excData || []
   if (!sc) return <Spinner label="Computing the buyer's view" />
   const pct = sc.max_inherent_points ? Math.round((sc.inherent_points / sc.max_inherent_points) * 100) : 0
 
   return (
     <div className="mx-auto max-w-[760px] rise">
-      <h1 className="display text-[24px] sm:text-[28px]">How the buyer will see this</h1>
+      <h1 className="display text-[24px] sm:text-[28px]">How the buyer will see this{refreshing ? <span className="ml-3 align-middle text-[13px] font-normal text-faint">updating…</span> : null}</h1>
       <p className="mt-1.5 text-[14.5px] text-muted">Computed with the customer's own workbook: their criticality table, risk points and escalation rules, applied to our current answers.</p>
 
       {job && job.kind === 'exceptions' ? <div className="mt-6"><JobProgress job={job} compact /></div> : null}

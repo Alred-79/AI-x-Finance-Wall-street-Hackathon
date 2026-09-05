@@ -231,14 +231,21 @@ def derive_all(store: Store, qids: list[str] | None = None, workers: int = 6, pr
 
 
 def question_states(store: Store) -> list[dict]:
+    from .cache import memo
+
+    return memo(store, "question_states", lambda: _question_states(store))
+
+
+def _question_states(store: Store) -> list[dict]:
     cat = get_catalog()
     states = {r["qid"]: r for r in store.q("SELECT * FROM question_state")}
+    values = store.kv_prefix("answer_value:")
     out = []
     for q in cat.ordered():
         s = states.get(q.qid) or {"status": "UNKNOWN", "answer": "", "comments": "", "confidence": 0.0, "evidence": "[]", "open_slots": "{}", "next_question": ""}
         out.append({
             **q.to_row(), "status": s["status"], "answer": s["answer"], "comments": s["comments"], "confidence": s["confidence"],
             "evidence": loads(s["evidence"], []), "open_slots": loads(s["open_slots"], {}), "next_question": s["next_question"],
-            "answer_value": store.kv_get(f"answer_value:{q.qid}", "Unknown"), "updated_at": s.get("updated_at"),
+            "answer_value": values.get(f"answer_value:{q.qid}", "Unknown"), "updated_at": s.get("updated_at"),
         })
     return out

@@ -1,16 +1,16 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import { ArrowRight, Play, UploadSimple } from '@phosphor-icons/react'
 import { api } from '../lib/api'
 import { Button, Card, Spinner, Tag, cx, formatDate } from '../components/ui'
 import { summarize } from '../components/JobProgress'
 import WorkflowDiagram from '../components/WorkflowDiagram'
+import { useResource } from '../lib/cache'
 
 const KIND = { ingest: 'index', research: 'research', buyer_review: 'exceptions', export: 'export' }
 
 export default function WorkflowsView({ status, job, actions, startChat }) {
-  const [data, setData] = useState(null)
   const fileRef = useRef(null)
-  useEffect(() => { api.workflows().then(setData).catch(() => {}) }, [job?.state, status?.counts])
+  const { data, refreshing } = useResource('workflows', api.workflows, [job?.state, status?.counts])
   if (!data) return <Spinner label="Loading workflows" />
 
   const start = async (w) => {
@@ -24,7 +24,7 @@ export default function WorkflowsView({ status, job, actions, startChat }) {
 
   return (
     <div className="rise">
-      <h1 className="display text-[24px] sm:text-[28px]">Workflows</h1>
+      <h1 className="display text-[24px] sm:text-[28px]">Workflows{refreshing ? <span className="ml-3 align-middle text-[13px] font-normal text-faint">updating…</span> : null}</h1>
       <p className="mt-1.5 max-w-[680px] text-[14.5px] text-muted">Each workflow is a fixed sequence of steps. The numbers on the nodes are live from the store — what each step produced last time — and clicking a node explains how that result is deduced. Progress streams back step by step; nothing runs silently.</p>
 
       <div className="mt-6 grid gap-4">

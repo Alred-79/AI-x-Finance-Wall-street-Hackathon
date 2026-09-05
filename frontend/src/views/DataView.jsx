@@ -5,6 +5,7 @@ import { AUTHORITY, Button, Panel, Rows, Section, Spinner, Tag, cx } from '../co
 import { STATUS, STATUS_ORDER } from '../lib/format'
 import JobProgress from '../components/JobProgress'
 import DashboardView from './DashboardView'
+import { useResource } from '../lib/cache'
 
 const TABS = [['dashboard', 'Dashboard'], ['overview', 'Overview'], ['coverage', 'Evidence map'], ['conflicts', 'Contradictions'], ['documents', 'Documents'], ['web', 'Public web']]
 const TIER_COLS = ['record', 'attestation', 'policy', 'template', 'employee', 'public']
@@ -18,8 +19,7 @@ const STATUS_RAMP = { VERIFIED: 1, CONFIRMED_BY_USER: 0.78, PARTIAL: 0.5, CONFLI
 export default function DataView({ status, job, actions, openQuestion, startChat }) {
   const [tab, setTab] = useState(() => localStorage.getItem('dataTab') || 'dashboard')
   useEffect(() => { localStorage.setItem('dataTab', tab) }, [tab])
-  const [data, setData] = useState(null)
-  useEffect(() => { api.overview().then(setData).catch(() => {}) }, [status?.claims, status?.counts, job?.state])
+  const { data, refreshing } = useResource('overview', api.overview, [status?.claims, status?.counts, job?.state])
   if (!data) return <Spinner label="Reading the store" />
   const empty = !data.counts.claims
 
@@ -29,7 +29,7 @@ export default function DataView({ status, job, actions, openQuestion, startChat
         <div>
           <h1 className="display text-[24px] sm:text-[28px]">Company data</h1>
           <p className="mt-1.5 text-[14.5px] text-muted">
-            Everything the analyst knows, by source and by control. Stored in {data.dialect === 'postgres' ? `Postgres${data.pgvector ? ' with pgvector' : ''}` : 'SQLite'} · {data.counts.embeddings} vectors for retrieval.
+            Everything the analyst knows, by source and by control. Stored in {data.dialect === 'postgres' ? `Postgres${data.pgvector ? ' with pgvector' : ''}` : 'SQLite'} · {data.counts.embeddings} vectors for retrieval.{refreshing ? <span className="ml-2 text-faint">· updating…</span> : null}
           </p>
         </div>
       </div>
@@ -228,8 +228,7 @@ function Documents({ docs }) {
 
 /* ---------------------------------------------------------------- public web */
 function PublicWeb({ status, job, actions }) {
-  const [data, setData] = useState(null)
-  useEffect(() => { api.reputational().then(setData).catch(() => {}) }, [status?.last_research, job?.state])
+  const { data } = useResource('reputational', api.reputational, [status?.last_research, job?.state])
   if (!data) return <Spinner label="Loading" />
   const running = job && job.state === 'running' && job.kind === 'research'
   const f = data.summary?.fields || {}

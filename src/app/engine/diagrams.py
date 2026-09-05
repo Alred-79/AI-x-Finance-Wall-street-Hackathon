@@ -52,16 +52,17 @@ def diagrams(store: Store) -> dict[str, dict]:
     st = {}
     for q in states:
         st[q["status"]] = st.get(q["status"], 0) + 1
-    sc = store.kv_get("last_score") or {}
+    kv = store.kv_prefix("last_") | store.kv_prefix("reputational") | store.kv_prefix("exceptions") | store.kv_prefix("workflow:export")
+    sc = kv.get("last_score") or {}
     conflicts = store.q("SELECT status FROM conflicts")
     n_open = sum(1 for k in conflicts if k["status"] == "open")
     n_res = sum(1 for k in conflicts if k["status"] == "resolved")
     ext = {}
     for r in store.q("SELECT kind, count(*) AS n FROM external_findings GROUP BY kind"):
         ext[r["kind"]] = r["n"]
-    rep = store.kv_get("reputational") or {}
-    exc = store.kv_get("exceptions") or []
-    last_export = store.kv_get("workflow:export:last") or {}
+    rep = kv.get("reputational") or {}
+    exc = kv.get("exceptions") or []
+    last_export = kv.get("workflow:export:last") or {}
     open_items = st.get("UNKNOWN", 0) + st.get("PARTIAL", 0) + st.get("CONFLICT", 0)
     with_evidence = sum(1 for q in states if q["evidence"])
     status_text = " · ".join(f"{k.replace('_BY_USER', '').lower()} {v}" for k, v in sorted(st.items(), key=lambda kv: -kv[1])) if st else None

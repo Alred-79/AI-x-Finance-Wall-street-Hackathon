@@ -11,6 +11,31 @@ TIERS = [(4, "record"), (3, "attestation"), (2, "policy"), (1, "template"), (5, 
 
 
 def overview(store: Store) -> dict:
+    from .cache import memo
+
+    return memo(store, "overview", lambda: _overview(store))
+
+
+def conflict_rows(store: Store) -> list[dict]:
+    """All conflicts with their claims, fetched in two queries instead of one per conflict."""
+    rows = store.q("SELECT * FROM conflicts ORDER BY status DESC, id")
+    ids = sorted({int(i[1:]) for k in rows for i in (loads(k["claim_ids"], []) or []) if str(i).startswith("C") and str(i)[1:].isdigit()})
+    claims = {}
+    if ids:
+        for c in store.q(f"SELECT c.id, c.statement, c.authority, c.observed_at, d.name AS doc, d.doc_type, d.is_template FROM claims c JOIN documents d ON d.id=c.doc_id WHERE c.id IN ({','.join('?' for _ in ids)})", ids):
+            claims[c["id"]] = c
+    out = []
+    for k in rows:
+        meta = loads(k["resolution"], {}) or {}
+        cids = [int(i[1:]) for i in (loads(k["claim_ids"], []) or []) if str(i).startswith("C") and str(i)[1:].isdigit()]
+        out.append({"id": k["id"], "status": k["status"], "severity": meta.get("severity", "medium"), "controls": meta.get("controls", [k["control"]]),
+                    "control": k["control"], "attribute": k["attribute"], "description": k["description"], "question_to_ask": k["question_to_ask"],
+                    "claims": [claims[i] for i in cids if i in claims], "claim_ids": loads(k["claim_ids"], []), "resolved_by": k["resolved_by"],
+                    "resolution_text": meta.get("text"), "created_at": k["created_at"], "resolved_at": k["resolved_at"]})
+    return out
+
+
+def _overview(store: Store) -> dict:
     cat = get_catalog()
     counts = store.counts()
     docs = store.q("SELECT d.id, d.name, d.doc_type, d.authority, d.is_template, d.effective_date, d.entity, d.text_len, "
@@ -58,14 +83,8 @@ def overview(store: Store) -> dict:
         t[s["status"]] += 1
         t["total"] += 1
 
-    conflicts = []
-    for k in store.q("SELECT * FROM conflicts ORDER BY status DESC, id"):
-        ids = [int(i[1:]) for i in (loads(k["claim_ids"], []) or []) if str(i).startswith("C") and str(i)[1:].isdigit()]
-        cl = store.q(f"SELECT c.id, c.statement, c.authority, c.observed_at, d.name AS doc, d.doc_type, d.is_template FROM claims c JOIN documents d ON d.id=c.doc_id WHERE c.id IN ({','.join('?' for _ in ids) or 'NULL'})", ids) if ids else []
-        meta = loads(k["resolution"], {}) or {}
-        conflicts.append({"id": k["id"], "status": k["status"], "severity": meta.get("severity", "medium"), "controls": meta.get("controls", [k["control"]]),
-                          "attribute": k["attribute"], "description": k["description"], "question_to_ask": k["question_to_ask"], "claims": cl,
-                          "resolved_by": k["resolved_by"], "resolution_text": meta.get("text")})
+    conflicts = conflict_rows(store)
+    last = store.kv_prefix("last_")
 
     return {"counts": counts, "tiers": tiers, "documents": docs, "coverage": coverage, "topics": topics, "conflicts": conflicts,
-            "dialect": store.dialect, "pgvector": store.has_pgvector, "last_run": store.kv_get("last_run"), "last_research": store.kv_get("last_research")}
+            "dialect": store.dialect, "pgvector": store.has_pgvector, "last_run": last.get("last_run"), "last_research": last.get("last_research")}

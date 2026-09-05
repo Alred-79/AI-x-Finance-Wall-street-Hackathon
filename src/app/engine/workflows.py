@@ -111,12 +111,19 @@ RUNNERS: dict[str, Callable] = {"ingest": run_ingest, "research": run_research, 
 
 
 def describe(store: Store) -> list[dict]:
+    from .cache import memo
+
+    return memo(store, "workflows", lambda: _describe(store))
+
+
+def _describe(store: Store) -> list[dict]:
     from .diagrams import diagrams
 
     keys = {"openrouter": bool(settings.openrouter_api_key), "tavily": bool(settings.tavily_api_key)}
     dg = diagrams(store)
+    last = store.kv_prefix("workflow:")
     out = []
     for key, w in WORKFLOWS.items():
-        out.append({"key": key, **w, "last_run": store.kv_get(f"workflow:{key}:last"), "diagram": dg.get(key),
+        out.append({"key": key, **w, "last_run": last.get(f"workflow:{key}:last"), "diagram": dg.get(key),
                     "available": all(keys.get(n, False) for n in w["needs"]), "missing_keys": [n for n in w["needs"] if not keys.get(n)]})
     return out

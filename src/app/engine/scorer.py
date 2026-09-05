@@ -47,13 +47,13 @@ def vendor_criticality(vendor_type: str, access: str) -> str:
 
 def document_availability(store: Store) -> list[dict]:
     docs = store.q("SELECT name, doc_type, is_template FROM documents")
+    per_control = {r["control"]: r["n"] for r in store.q("SELECT c.control, count(*) AS n FROM claims c JOIN documents d ON d.id=c.doc_id WHERE d.is_template=0 GROUP BY c.control")}
     out = []
     for req, (controls, keys) in REQUESTED_DOC_MAP.items():
         direct = [d for d in docs if any(k in d["name"].lower().replace(" ", "_") or k in d["name"].lower() for k in keys)]
         real = [d for d in direct if not d["is_template"]]
         templates = [d for d in direct if d["is_template"]]
-        ph = ",".join("?" for _ in controls)
-        n_claims = store.one(f"SELECT count(*) n FROM claims c JOIN documents d ON d.id=c.doc_id WHERE c.control IN ({ph}) AND d.is_template=0", controls)["n"]
+        n_claims = sum(per_control.get(c, 0) for c in controls)
         if real:
             status, note = "available", ", ".join(d["name"] for d in real[:3])
         elif templates:
@@ -67,6 +67,12 @@ def document_availability(store: Store) -> list[dict]:
 
 
 def score(store: Store, vendor_type: str = "Technology", access: str = "Network&Data") -> dict:
+    from .cache import memo
+
+    return memo(store, f"score:{vendor_type}:{access}", lambda: _score(store, vendor_type, access))
+
+
+def _score(store: Store, vendor_type: str, access: str) -> dict:
     states = question_states(store)
     crit = vendor_criticality(vendor_type, access)
     at_risk, escalations, total_inh, total_res, max_inh = [], [], 0.0, 0.0, 0.0
@@ -116,7 +122,7 @@ def score(store: Store, vendor_type: str = "Technology", access: str = "Network&
         "documents": docs, "fix_first": fix_list,
         "counts": {k: sum(1 for s in states if s["status"] == k) for k in ("VERIFIED", "CONFIRMED_BY_USER", "PARTIAL", "CONFLICT", "UNKNOWN")},
     }
-    store.kv_set("last_score", result)
+    store.kv_set("last_score", result, bump=False)
     return result
 
 

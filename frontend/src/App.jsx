@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { ChatCircleText, ClipboardText, Database, Download, FileText, FlowArrow, Moon, Scales, ShieldCheck, Sun } from '@phosphor-icons/react'
 import { api, pollJob } from './lib/api'
+import { prefetch, readCache, writeCache } from './lib/cache'
 import { toggleTheme } from './lib/theme'
 import { Tag, cx } from './components/ui'
 import JobProgress, { summarize } from './components/JobProgress'
@@ -22,8 +23,8 @@ const NAV = [
 
 export default function App() {
   const [view, setView] = useState(() => localStorage.getItem('view') || 'chat')
-  const [status, setStatus] = useState(null)
-  const [questions, setQuestions] = useState([])
+  const [status, setStatus] = useState(() => readCache('status') ?? null)
+  const [questions, setQuestions] = useState(() => readCache('questions') ?? [])
   const [job, setJob] = useState(null)
   const [error, setError] = useState('')
   const [focusQid, setFocusQid] = useState(null)
@@ -40,10 +41,17 @@ export default function App() {
   const refresh = useCallback(async () => {
     try {
       const [s, q] = await Promise.all([api.status(), api.questions()])
+      writeCache('status', s); writeCache('questions', q)
       setStatus(s); setQuestions(q); setError('')
     } catch (e) { setError(e.message || String(e)) }
   }, [])
   useEffect(() => { refresh(); timer.current = setInterval(refresh, 20000); return () => clearInterval(timer.current) }, [refresh])
+  // Warm the other views once the shell is up, one request at a time, so switching tabs is instant.
+  useEffect(() => {
+    if (!status) return
+    const t = setTimeout(() => prefetch([['workflows', api.workflows], ['overview', api.overview], ['score', api.score], ['exceptions', api.exceptions], ['reputational', api.reputational]]), 800)
+    return () => clearTimeout(t)
+  }, [status?.indexed]) // eslint-disable-line react-hooks/exhaustive-deps
   // A job started server-side (auto-index on first start, or from another tab) is adopted here so progress is visible.
   useEffect(() => {
     const running = status?.jobs?.[0]

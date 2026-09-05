@@ -59,20 +59,26 @@ def _job(kind: str, fn) -> dict:
 
 @router.get("/status")
 def status():
+    from ..engine.cache import memo
+
     s = store()
-    docs = s.one("SELECT count(*) n FROM documents")["n"]
-    claims = s.one("SELECT count(*) n FROM claims")["n"]
-    sc = s.kv_get("last_score") or {}
+    body = memo(s, "status", lambda: _status_body(s), ttl=10)
+    return {**body, "jobs": [{k: v for k, v in j.items() if k != "events"} | {"last_event": (j["events"] or [None])[-1]} for j in JOBS.values() if j["state"] == "running"]}
+
+
+def _status_body(s) -> dict:
+    counts = s.counts()
+    kv = s.kv_prefix("last_")
+    sc = kv.get("last_score") or {}
     return {
         "vendor": {"legal_name": settings.vendor_legal_name, "brand": settings.vendor_brand, "domain": settings.vendor_domain},
-        "documents": docs, "claims": claims, "indexed": claims > 0,
-        "last_run": s.kv_get("last_run"), "last_research": s.kv_get("last_research"),
+        "documents": counts["documents"], "claims": counts["claims"], "indexed": counts["claims"] > 0,
+        "last_run": kv.get("last_run"), "last_research": kv.get("last_research"),
         "counts": sc.get("counts"), "predicted_rating": sc.get("predicted_rating"),
         "inherent_points": sc.get("inherent_points"), "max_inherent_points": sc.get("max_inherent_points"),
         "escalations": len(sc.get("escalations", [])), "vendor_criticality": sc.get("vendor_criticality"),
         "keys": {"openrouter": bool(settings.openrouter_api_key), "tavily": bool(settings.tavily_api_key)},
-        "store": {"dialect": s.dialect, "pgvector": s.has_pgvector, "embeddings": s.one("SELECT count(*) AS n FROM embeddings")["n"], "provider": settings.embedding_provider},
-        "jobs": [{k: v for k, v in j.items() if k != "events"} | {"last_event": (j["events"] or [None])[-1]} for j in JOBS.values() if j["state"] == "running"],
+        "store": {"dialect": s.dialect, "pgvector": s.has_pgvector, "embeddings": counts["embeddings"], "provider": settings.embedding_provider},
     }
 
 
@@ -126,15 +132,9 @@ def question(qid: str):
 
 @router.get("/conflicts")
 def conflicts():
-    rows = store().q("SELECT * FROM conflicts ORDER BY status DESC, id")
-    for r in rows:
-        meta = loads(r["resolution"], {}) or {}
-        r["severity"], r["controls"], r["resolution_text"] = meta.get("severity", "medium"), meta.get("controls", [r["control"]]), meta.get("text")
-        r["claim_ids"] = loads(r["claim_ids"], [])
-        ids = [int(i[1:]) for i in r["claim_ids"] if str(i).startswith("C") and str(i)[1:].isdigit()]
-        r["claims"] = store().q(f"SELECT c.id, c.statement, c.authority, c.observed_at, d.name AS doc, d.is_template FROM claims c JOIN documents d ON d.id=c.doc_id WHERE c.id IN ({','.join('?' for _ in ids) or 'NULL'})", ids) if ids else []
-        r.pop("resolution", None)
-    return rows
+    from ..engine.overview import conflict_rows
+
+    return conflict_rows(store())
 
 
 class Resolve(BaseModel):

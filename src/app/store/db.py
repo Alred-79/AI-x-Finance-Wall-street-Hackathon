@@ -85,6 +85,7 @@ class Store:
         self.url = url if url is not None else (settings.database_url if path is None else "")
         self.dialect = "postgres" if self.url else "sqlite"
         self._lock = threading.RLock()
+        self.generation = 0  # bumped on every write; read caches key on it
         self.has_pgvector = False
         if self.dialect == "postgres":
             self._connect_pg()
@@ -177,6 +178,7 @@ class Store:
         return [json.dumps(v) if isinstance(v, (dict, list)) else v for v in row.values()]
 
     def insert(self, table: str, row: dict[str, Any]) -> int:
+        self.generation += 1
         cols = ", ".join(row.keys())
         ph = ", ".join("?" for _ in row)
         with self.tx() as c:
@@ -187,7 +189,9 @@ class Store:
             cur = c.execute(f"INSERT INTO {table} ({cols}) VALUES ({ph})", self._vals(row))
             return int(cur.lastrowid)
 
-    def upsert(self, table: str, key: str, row: dict[str, Any]) -> None:
+    def upsert(self, table: str, key: str, row: dict[str, Any], bump: bool = True) -> None:
+        if bump:
+            self.generation += 1
         cols = ", ".join(row.keys())
         ph = ", ".join("?" for _ in row)
         upd = ", ".join(f"{k}=excluded.{k}" for k in row if k != key) or f"{key}=excluded.{key}"
@@ -195,12 +199,14 @@ class Store:
             self._exec(f"INSERT INTO {table} ({cols}) VALUES ({ph}) ON CONFLICT({key}) DO UPDATE SET {upd}", self._vals(row))
 
     def execute(self, sql: str, params: Iterable[Any] = ()) -> None:
+        self.generation += 1
         with self.tx():
             self._exec(sql, params)
 
     def executemany(self, sql: str, rows: list[tuple]) -> None:
         if not rows:
             return
+        self.generation += 1
         with self.tx() as c:
             if self.dialect == "postgres":
                 with self._conn.cursor() as cur:
@@ -215,8 +221,9 @@ class Store:
         r = self.one("SELECT v FROM kv WHERE k=?", (k,))
         return json.loads(r["v"]) if r else default
 
-    def kv_set(self, k: str, v: Any) -> None:
-        self.upsert("kv", "k", {"k": k, "v": json.dumps(v)})
+    def kv_set(self, k: str, v: Any, bump: bool = True) -> None:
+        """bump=False for derived snapshots (e.g. last_score) so writing them does not invalidate read caches."""
+        self.upsert("kv", "k", {"k": k, "v": json.dumps(v)}, bump=bump)
 
     # ------------------------------------------------------------------ embeddings
     def put_embeddings(self, item_type: str, rows: list[tuple[int, list[float]]], model: str) -> None:
@@ -254,10 +261,12 @@ class Store:
 
     # ------------------------------------------------------------------ maintenance
     def counts(self) -> dict[str, int]:
-        out = {}
-        for t in ("documents", "chunks", "claims", "user_statements", "conflicts", "external_findings", "embeddings", "messages"):
-            out[t] = int(self.one(f"SELECT count(*) AS n FROM {t}")["n"])
-        return out
+        tables = ("documents", "chunks", "claims", "user_statements", "conflicts", "external_findings", "embeddings", "messages")
+        row = self.one("SELECT " + ", ".join(f"(SELECT count(*) FROM {t}) AS {t}" for t in tables))
+        return {t: int(row[t]) for t in tables}
+
+    def kv_prefix(self, prefix: str) -> dict[str, Any]:
+        return {r["k"]: json.loads(r["v"]) for r in self.q("SELECT k, v FROM kv WHERE k LIKE ?", (prefix + "%",))}
 
     def reset_derived(self) -> None:
         """Clear everything derived from documents (keeps user statements & messages)."""
