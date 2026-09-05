@@ -1,0 +1,2002 @@
+questions:
+  '1':
+    qid: '1'
+    topic: Governance
+    text: Does your organization have a formal Information Security Program established?
+    rule: "If answer is \"Yes\":\nSelf attestation is sufficient.\n\nIf answer is \"No\":\n-Require justification with submission\
+      \ of org chart and identification of who oversees InfoSec governance and roles involved on InfoSec team.\n-Require timeline\
+      \ for implementation if vendor conveys that formalization is in process.\n\nIf vendor cannot provide any of the above\
+      \ remediation evidence: \n-Escalate to TPRM Program Manager for risk acceptance, alternate controls/remediation plans\
+      \ or rejection directive."
+    control_id: GOV-01
+    control_objective: The organization facilitates the implementation of cybersecurity & data protection governance controls
+    criticality: Critical
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 6.0
+    residual_pts: 1.0
+  '2':
+    qid: '2'
+    topic: Governance
+    text: Does your organization have a published set of Information Security policies, standards and procedures?
+    rule: 'If answer is "Yes":
+
+      Self attestation is sufficient.
+
+
+      If answer is "No":
+
+      -Escalate to TPRM Program Manager for risk acceptance, alternate controls/remediation plans or rejection directive.'
+    control_id: GOV-02
+    control_objective: The organization establishes, maintains and disseminates cybersecurity & data protection policies,
+      standards and procedures.
+    criticality: Moderate
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 6.0
+    residual_pts: 1.0
+  '3':
+    qid: '3'
+    topic: Governance
+    text: Does your organization have a public information security policy?
+    rule: "If answer is \"Yes\": \nRequest URL or copy of public policy; \n\nIf answer is \"No\":\nNotate in reviewer comments\
+      \ in column I."
+    control_id: ''
+    control_objective: ''
+    criticality: ''
+    informational: true
+    escalate_if_no: false
+    inherent_pts: 0.0
+    score_notes:
+    - Informational
+    - Informational
+    residual_pts: 0.0
+  '4':
+    qid: '4'
+    topic: Governance
+    text: Does your organization document role descriptions including relevant cybersecurity & data protection responsibilities?
+    rule: 'If answer is "Yes":
+
+      Self attestation is sufficient.
+
+
+      If answer is "No":
+
+      Notate in reviewer comments in column I & escalate.'
+    control_id: GOV-04
+    control_objective: The organization assigns a qualified individual with the mission and resources to centrally-manage,
+      coordinate, develop, implement and maintain an enterprise-wide cybersecurity & data protection program.
+    criticality: High
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 6.0
+    residual_pts: 1.0
+  '5':
+    qid: '5'
+    topic: Governance
+    text: Is there a procedure in place for overseeing cybersecurity and data protection controls, that includes how issues
+      are escalated to leadership?
+    rule: 'If answer is "Yes":
+
+      Self attestation is sufficient.
+
+
+      If answer is "No":
+
+      Request description of how risks are escalated to leadership. Notate response in reviewer comments in column I & escalate.'
+    control_id: CPL-02
+    control_objective: Mechanisms exist to provide a cybersecurity & data protection controls oversight function that reports
+      to the organization's executive leadership.
+    criticality: Moderate
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 9.0
+    residual_pts: 2.0
+  '6':
+    qid: '6'
+    topic: Third-Party Risk Management
+    text: Will you be using any contractors or sub-contractors to complete the engagement with Client XYZ?
+    rule: "If answer is \"Yes\":\nRequest list of contractors/subcontractors; \nVerify trickle down contractor obligations\
+      \ and mandated notification of changes are flagged for Legal Review on the summary tab.\n\nIf answer is \"No\":\nSelf\
+      \ attestation is sufficient."
+    control_id: ''
+    control_objective: ''
+    criticality: ''
+    informational: true
+    escalate_if_no: false
+    inherent_pts: 0.0
+    score_notes:
+    - Informational
+    - Informational
+    residual_pts: 0.0
+  '7':
+    qid: '7'
+    topic: Third-Party Risk Management
+    text: Do you have a third-party risk management program/policy in place?
+    rule: "If answer is \"Yes\":\nRequest copy of TPRM policy if not already received (required doc for all vendors);\n\n\
+      If answer is \"No\":\nLack of a formal TPRM program is a sign of a significant deficiency and should be escalated unless\
+      \ the vendor criticality is SC0 - No access at all. \nEscalate. \nVerify contractual requirement for TPRM adherence\
+      \ is flagged for Legal Review on the summary tab."
+    control_id: TPM-01
+    control_objective: The organization facilitates the implementation of third-party management controls.
+    criticality: High
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 6.0
+    residual_pts: 2.0
+  '8':
+    qid: '8'
+    topic: Third-Party Risk Management
+    text: Please attach your Third-Party Risk Management Policy.
+    rule: "If answer is \"Yes\":\nRequest copy of TPRM policy if not already received (required doc for all vendors);\n\n\
+      If answer is \"No\":\nEscalate. \nRequire implementation plan if missing.\nVerify contractual requirement for TPRM adherence\
+      \ is flagged for Legal Review on the summary tab."
+    control_id: ''
+    control_objective: ''
+    criticality: ''
+    informational: true
+    escalate_if_no: true
+    inherent_pts: 0.0
+    score_notes:
+    - Informational
+    - Informational
+    residual_pts: 0.0
+  '9':
+    qid: '9'
+    topic: Third-Party Risk Management
+    text: Does your third-party risk management program include supply chain protections?
+    rule: "If answer is \"Yes\":\nRequest description of supply chain security measures/controls.\n\nIf answer is \"No\":\
+      \ \nRequest justification as to why not implemented. Notate in reviewer comments in column I and escalate.\nVerify supply\
+      \ chain contractual protection verbiage is flagged for Legal Review on the summary tab."
+    control_id: TPM-03.2
+    control_objective: The organization utilizes security safeguards to limit harm from potential adversaries who identify
+      and target the organization's supply chain.
+    criticality: High
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 6.0
+    residual_pts: 2.0
+  '10':
+    qid: '10'
+    topic: Third-Party Risk Management
+    text: Do your vendor and subcontractor agreements include clauses requiring adherence to cybersecurity and data privacy
+      standards, and do these requirements flow down to all applicable subcontractors and suppliers?
+    rule: "If answer is \"Yes\":\nRequest sample agreements/screenshot of agreement terms; \n\nIf answer is \"No\":\nVerify\
+      \ security/privacy clauses and mandated flow-down obligations are flagged for Legal Review in the summary tab."
+    control_id: TPM-05.2
+    control_objective: The organization ensures cybersecurity & data privacy requirements are included in contracts that flow-down
+      to applicable sub-contractors and suppliers.
+    criticality: High
+    informational: false
+    escalate_if_no: false
+    inherent_pts: 6.0
+    residual_pts: 2.0
+  '11':
+    qid: '11'
+    topic: Security Awareness & Training
+    text: Do you provide security awareness training at onboarding and at least annually thereafter for all personnel including
+      contractors?
+    rule: 'If answer is "Yes":
+
+      Self attestation is sufficient.
+
+
+      If answer is "No":
+
+      Ask if there are plans to implement and implementation date, notate response in reviewer comments in column I and escalate.'
+    control_id: SAT-01
+    control_objective: The organization facilitates the implementation of security workforce development and awareness controls.
+    criticality: High
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 9.0
+    residual_pts: 2.0
+  '12':
+    qid: '12'
+    topic: Security Awareness & Training
+    text: How frequently are employees trained on policies in your organization?
+    rule: 'Options are: We don''t have a formal cadence, Daily, Weekly, Monthly, Annually, Semi-Annually, Bienally, Other,
+      N/A
+
+
+      If vendor selects any of the following:"We don''t have a formal cadence", "Other","N/A", you will see their justification
+      for the response and not the selection itself. Notate the justification in the reviewer comments in column I and escalate.'
+    control_id: ''
+    control_objective: ''
+    criticality: ''
+    informational: true
+    escalate_if_no: true
+    inherent_pts: 0.0
+    score_notes:
+    - Informational
+    - Informational
+    residual_pts: 0.0
+  '13':
+    qid: '13'
+    topic: Security Awareness & Training
+    text: Does your organization provide role based security awareness training at least annually?
+    rule: 'If answer is "Yes":
+
+      Self attestation is sufficient.
+
+
+      If answer is "No":
+
+      Ask for justification and/or cadence if the cadence is not annual. Notate response in reviewer comments in column I
+      and escalate.'
+    control_id: SAT-02
+    control_objective: The organization provides all employees and contractors appropriate awareness education and training
+      that is relevant for their job function.
+    criticality: Moderate
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 9.0
+    residual_pts: 2.0
+  '14':
+    qid: '14'
+    topic: Privacy
+    text: Does your organization have privacy controls and or Data Privacy program in place?
+    rule: 'If answer is "Yes":
+
+      Self attestation is sufficient.
+
+
+      If answer is "No":
+
+      Determine from the vendor profile tab if vendor will have access to Regodit network or Regodit data. If vendor will
+      have access to either, notate the scope of engagement in the reviewer comments and escalate.'
+    control_id: 'PRI-01;
+
+      SAT-01'
+    control_objective: 'The organization facilitates the implementation and operation of data privacy controls.
+
+
+      The organization facilitates the implementation of security workforce development and awareness controls.'
+    criticality: 'Critical
+
+      High'
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 15.0
+    score_notes:
+    - Mapped to 2 Risks
+    - Mapped to 2 Risks
+    residual_pts: 4.0
+  '15':
+    qid: '15'
+    topic: Privacy
+    text: Will your personnel or your product require access to sensitive data (i.e PII, PI, PHI) to complete the engagement
+      with Regodit?
+    rule: "If answer is \"Yes\":\nRequest data handling procedures. \nNotate receipt of docs in the reviewer comments column\
+      \ I. Save docs under vendor profile in Navex AND SharePoint.\nVerify encryption, access controls, and breach notification\
+      \ clauses are flagged for Legal Review on the summary tab. Escalate if vendor pushes back or cannot provide. \n\nIf\
+      \ answer is \"No\":\nSelf attestation is sufficient."
+    control_id: ''
+    control_objective: ''
+    criticality: ''
+    informational: true
+    escalate_if_no: true
+    inherent_pts: 0.0
+    score_notes:
+    - Informational
+    - Informational
+    residual_pts: 0.0
+  '16':
+    qid: '16'
+    topic: Privacy
+    text: Please provide a copy of your data retention schedule and secure disposal procedures
+    rule: 'Documents only required if vendor has access to Regodit data.
+
+
+      If vendor has access but cannot or will not provide documentation, notate responses and scope of engagement in reviewer
+      comments in column I and escalate.'
+    control_id: PRI-05
+    control_objective: Ensure that personal data is retained only for as long as necessary to fulfill its intended purpose
+      and is securely disposed of when no longer needed.
+    criticality: Critical
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 9.0
+    residual_pts: 2.0
+  '17':
+    qid: '17'
+    topic: Privacy
+    text: Do you have a privacy policy in place? If so, please provide the attachment or URL.
+    rule: 'Documents only required if vendor has access to Regodit data.
+
+
+      If vendor has access but cannot or will not provide documentation, notate responses and scope of engagement in reviewer
+      comments in column I and escalate.'
+    control_id: PRI-07
+    control_objective: Mechanisms exist to disclose Personal Data (PD) to third parties only for the purposes identified in
+      the data privacy notice and with the implicit or explicit consent of the data subject
+    criticality: Critical
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 9.0
+    residual_pts: 2.0
+  '18':
+    qid: '18'
+    topic: Privacy
+    text: Does your organization ensure privacy requirements are extended to contractors and service providers through contractual
+      agreements, and that roles and responsibilities concerning data privacy are clearly understood and documented?
+    rule: "If answer is \"Yes\":\nRequest sample agreements/screenshot of agreement terms; \n\nIf answer is \"No\":\nVerify\
+      \ security/privacy clauses and mandated flow-down obligations are flagged for Legal Review in the summary tab."
+    control_id: PRI-07.1
+    control_objective: The organization includes data privacy requirements in contracts and other acquisition-related documents
+      that establish data privacy roles and responsibilities for contractors and service providers.
+    criticality: Critical
+    informational: false
+    escalate_if_no: false
+    inherent_pts: 9.0
+    residual_pts: 2.0
+  '19':
+    qid: '19'
+    topic: Data Security
+    text: Do you, or any third party you use to deliver services to Client XYZ, store sensitive information outside the United
+      States? If so, where?
+    rule: 'If answer is "Yes":
+
+      Request list of data storage locations.
+
+      Verify requirement to comply with Regodit data residency requirements is flagged for Legal Review.
+
+      Escalate for high-risk jurisdictions.
+
+
+      If answer is "No":
+
+      Self attestation is sufficient.'
+    control_id: DCH-19
+    control_objective: "The organization inventories, documents, and maintains data flows for data that is resident (permanently\
+      \ or temporarily) within a service’s geographically distributed applications (physical and virtual), infrastructure,\
+      \ systems components, and/or shared with other third-parties. \n\nThis includes identifying where data is stored, processed,\
+      \ or transmitted across borders and ensuring compliance with statutory, regulatory, and contractual obligations."
+    criticality: High
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 3.0
+    residual_pts: 0.0
+  '20':
+    qid: '20'
+    topic: Data Security
+    text: Do you require data-at-rest encryption for sensitive data?
+    rule: "If answer is \"Yes\":\nDetermine if vendor will have access to Regodit data from the vendor profile tab.\nIf vendor\
+      \ will have access, request encryption policy and evidence/screenshot of implementation. \nEscalate if vendor pushes\
+      \ back or cannot provide.\n\nIf answer is \"No\":\nNotate scope of engagement in the reviewer comments in column I and\
+      \ escalate."
+    control_id: CRY-05
+    control_objective: Cryptographic mechanisms exist to prevent unauthorized disclosure of data at rest.
+    criticality: Critical
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 3.0
+    residual_pts: 0.0
+  '21':
+    qid: '21'
+    topic: Data Security
+    text: Do you require data-in-transit encryption for sensitive data? If so, please describe the encryption protocols used.
+    rule: "If answer is \"Yes\":\nRequest details of encryption protocols. \nIf vendor response is not TLS 1.2+, notate response\
+      \ in reviewer comments in column I and escalate.\n\nIf answer is \"No\":\nNotate scope of engagement in the reviewer\
+      \ comments in column I and escalate."
+    control_id: CRY-01
+    control_objective: Mechanisms exist to facilitate the implementation of cryptographic protections controls using known
+      public standards and trusted cryptographic technologies.
+    criticality: High
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 3.0
+    residual_pts: 0.0
+  '22':
+    qid: '22'
+    topic: Data Security
+    text: Will Regodit data be stored on site, in a data center, or by a third party?
+    rule: 'Options available to vendors are: On-Site, Data Center(Controlled by you), Cloud(Controlled by you), Cloud(Controlled
+      by a third-party), N/A, Other
+
+
+      If vendor has no access to Regodit data, vendor response should be "N/A".
+
+
+      For all other responses:
+
+      Request storage locations, 3rd party company name if applicable, security certifications for any vendor owned data centers.
+
+      Notate engagement scope in reviewer comments in column I and escalate if pushback received from vendor.'
+    control_id: CRY-05
+    control_objective: Cryptographic mechanisms exist to prevent unauthorized disclosure of data at rest.
+    criticality: Critical
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 3.0
+    residual_pts: 0.0
+  '23':
+    qid: '23'
+    topic: Data Security
+    text: Do you have data retention policies and procedures for the secure disposal of information?
+    rule: "If vendor has access to Regodit data:\nRequest retention and disposal policies.\n\nNotate engagement scope in reviewer\
+      \ comments in column I and escalate if pushback or no documents received from vendor. \n\nIf no access to Regodit data,\
+      \ docs are not required."
+    control_id: DCH-01
+    control_objective: Organization must implement controls to protect data wherever it is stored, transmitted, and processed,
+      in accordance with applicable statutory, regulatory, and contractual compliance obligations. This includes defining
+      retention periods for both sensitive and non-sensitive/regulated data and implementing processes to dispose of, destroy,
+      erase, and/or anonymize data once it is no longer necessary for business purposes.
+    criticality: Critical
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 3.0
+    residual_pts: 0.0
+  '24':
+    qid: '24'
+    topic: Data Security
+    text: If providing a product or SaaS platform that will access, store, or process Client XYZ data, are you able to provide
+      applicable data flow diagrams showing how Regodit's data will flow through the tool upon request?
+    rule: "Options available to vendors are: Yes, No, N/A\n\nIf answer is \"Yes\":\nRequest data flow diagrams.\nNotate engagement\
+      \ scope in reviewer comments in column I and escalate if pushback or no documents received from vendor. \n\nIf answer\
+      \ is \"No\":\nNotate engagement scope in reviewer comments in column I and escalate if pushback or no documents received\
+      \ from vendor. \n\nIf answer is \"N/A\":\nDetermine if vendor will have access to Regodit data by evaluating engagement\
+      \ scope and escalate as needed."
+    control_id: ''
+    control_objective: ''
+    criticality: ''
+    informational: true
+    escalate_if_no: true
+    inherent_pts: 0.0
+    score_notes:
+    - Informational
+    - Informational
+    residual_pts: 0.0
+  '25':
+    qid: '25'
+    topic: Physical Security
+    text: Is there a policy in place for physical security requirements for your business?
+    rule: 'If answer is "Yes":
+
+      Self attestation is sufficient if no access to Regodit locations.
+
+      If vendor will need access to Regodit locations:
+
+      Request physical security policy.
+
+
+      If answer is "No":
+
+      Self attestation is sufficient if no access to Regodit locations.
+
+      If vendor will need access to Regodit locations:
+
+      Notate engagement scope in reviewer comments in column I and escalate if pushback or no documents received from vendor.'
+    control_id: PES-01
+    control_objective: The organization facilitates the operation of physical and environmental protection controls
+    criticality: Moderate
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 9.0
+    residual_pts: 2.0
+  '26':
+    qid: '26'
+    topic: Physical Security
+    text: Do you require physical access to any Client XYZ locations to complete your engagement?
+    rule: "If answer is \"Yes\":\nRequest physical security policy.\nFind out which Regodit location will be accessed and\
+      \ provide the relevant visitor management policy to the vendor for review and acceptance. \nAsk for a 1st party attestation\
+      \ that backgrounds checks have been performed on the personnel visiting the Regodit location.\n\nIf answer is \"No\"\
+      :\nSelf attestation is sufficient, if no access to Regodit locations.\n\nNotate engagement scope in reviewer comments\
+      \ in column I and escalate if pushback or no documents/attestation received from vendor."
+    control_id: ''
+    control_objective: ''
+    criticality: ''
+    informational: true
+    escalate_if_no: true
+    inherent_pts: 0.0
+    score_notes:
+    - Informational
+    - Informational
+    residual_pts: 0.0
+  '27':
+    qid: '27'
+    topic: Physical Security
+    text: Are you willing to accept and acknowledge the expectations outlined in Client XYZ's Visitor Management document?
+    rule: "If answer is \"Yes\" and vendor needs access to Regodit locations:\nSelf attestation is sufficient.\n\nIf answer\
+      \ is \"No\":\nRequire signed acknowledgment before engagement start. \nNotate engagement scope in reviewer comments\
+      \ in column I and escalate if pushback or no documents/attestation received from vendor."
+    control_id: 'PES-02;
+
+      PES-02.1'
+    control_objective: The organization maintains a current list of personnel with authorized access to organizational facilities
+      (except for those areas within the facility officially designated as publicly accessible).
+    criticality: 'Moderate
+
+      Low'
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 18.0
+    score_notes:
+    - Mapped to 2 Risks
+    - Mapped to 2 Risks
+    residual_pts: 4.0
+  '28':
+    qid: '28'
+    topic: Physical Security
+    text: Does your organization have procedures in place to track assets that are brought onto Client XYZ sites?
+    rule: 'If answer is "Yes" :
+
+      Self attestation is sufficient.
+
+
+      If answer is "No":
+
+      Request asset tracking procedures.
+
+      Verify clause for mandatory onsite asset reporting is flagged for legal review in the summary tab.
+
+
+      Notate engagement scope in reviewer comments in column I and escalate if pushback or no documents/attestation received
+      from vendor.'
+    control_id: AST-02
+    control_objective: 'Mechanisms exist to perform inventories of technology assets that:
+
+
+      Accurately reflect the current systems, applications, and services in use;
+
+      Identify authorized software products, including business justification details;
+
+      Are at the level of granularity deemed necessary for tracking and reporting;
+
+      Include organization-defined information necessary to achieve effective property accountability;
+
+      Are available for review and audit by designated organizational personnel.'
+    criticality: Moderate
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 9.0
+    residual_pts: 2.0
+  '29':
+    qid: '29'
+    topic: Physical Security
+    text: Can you provide your organization's data protection policy, including evidence of physical safeguards for devices
+      used onsite if requested?
+    rule: 'If answer is "Yes" :
+
+      Self attestation is sufficient.
+
+
+      If answer is "No":
+
+      Notate engagement scope in reviewer comments in column I and escalate.'
+    control_id: DCH-01
+    control_objective: Regodit must implement controls to protect data wherever it is stored, transmitted, and processed,
+      in accordance with applicable statutory, regulatory, and contractual compliance obligations. This includes defining
+      retention periods for both sensitive and non-sensitive/regulated data and implementing processes to dispose of, destroy,
+      erase, and/or anonymize data once it is no longer necessary for business purposes.
+    criticality: Critical
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 3.0
+    residual_pts: 0.0
+  '30':
+    qid: '30'
+    topic: Web Application Security
+    text: Will Client XYZ be using a web application provided by you?
+    rule: 'If answer is "Yes" Security Question ID#30 :
+
+      Request application details.
+
+
+      If answer is "No" to Security Question ID#30:
+
+      Security Question ID#''s 31,32,33,34,35,36 and 37 are not no longer required.'
+    control_id: ''
+    control_objective: ''
+    criticality: ''
+    informational: true
+    escalate_if_no: false
+    inherent_pts: 0.0
+    score_notes:
+    - Informational
+    - Informational
+    residual_pts: 0.0
+  '31':
+    qid: '31'
+    topic: Web Application Security
+    text: What is the name of your web application?
+    rule: 'If answer is "Yes" Security Question ID#30 :
+
+      Request application details including name and function/purpose.
+
+
+      If answer is "No" to Security Question ID#30:
+
+      Security Question ID#''s 31,32,33,34,35,36 and 37 are not no longer required.'
+    control_id: ''
+    control_objective: ''
+    criticality: ''
+    informational: true
+    escalate_if_no: false
+    inherent_pts: 0.0
+    score_notes:
+    - Informational
+    - Informational
+    residual_pts: 0.0
+  '32':
+    qid: '32'
+    topic: Web Application Security
+    text: What is the function/purpose of your web application?
+    rule: 'If answer is "Yes" Security Question ID#30 :
+
+      Request application details including name and function/purpose.
+
+
+      If answer is "No" to Security Question ID#30:
+
+      Security Question ID#''s 31,32,33,34,35,36 and 37 are not no longer required.'
+    control_id: ''
+    control_objective: ''
+    criticality: ''
+    informational: true
+    escalate_if_no: false
+    inherent_pts: 0.0
+    score_notes:
+    - Informational
+    - Informational
+    residual_pts: 0.0
+  '33':
+    qid: '33'
+    topic: Web Application Security
+    text: How do you report application security vulnerabilities?
+    rule: "If answer is \"Yes\" Security Question ID#30 :\nRequest vulnerability reporting process; \nVerify remediation expectations/SLA's;\
+      \ \nVerify disclosure obligation verbiage is flagged for Legal review on the summary tab.\n\nIf answer is \"No\" to\
+      \ Security Question ID#30:\nSecurity Question ID#'s 31,32,33,34,35,36 and 37 are not no longer required."
+    control_id: VPM-01.1
+    control_objective: Define and manage the attack surface by identifying vulnerabilities, applying patches, and maintaining
+      secure configurations across systems.
+    criticality: High
+    informational: false
+    escalate_if_no: false
+    inherent_pts: 9.0
+    residual_pts: 2.0
+  '34':
+    qid: '34'
+    topic: Web Application Security
+    text: Does your web application have an SSL/TLS certificate?
+    rule: "If answer is \"Yes\":\nRequest SSL certificate evidence. \nRequire remediation if absent.\n\nIf answer is \"No\"\
+      :\nNotate engagement scope in reviewer comments in column I and escalate if pushback or no documents/attestation received\
+      \ from vendor."
+    control_id: CRY-03
+    control_objective: Cryptographic mechanisms exist to protect the confidentiality of data being transmitted.
+    criticality: Critical
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 3.0
+    residual_pts: 0.0
+  '35':
+    qid: '35'
+    topic: Web Application Security
+    text: Does your application offer single sign-on (SSO) or are there plans to implement/offer SSO in the near future? If
+      plans to implement in near future, include an implementation date in your justification.
+    rule: Request SSO capability details; require implementation timeline; escalate if critical for engagement.
+    control_id: IAC-05
+    control_objective: The organization identifies and authenticates third-party systems and services.
+    criticality: Critical
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 3.0
+    residual_pts: 0.0
+  '36':
+    qid: '36'
+    topic: Secure Coding
+    text: Do you have policies, procedures or standards in place for secure development practices?
+    rule: Request secure development policies; require remediation plan if missing; mandate adherence to OWASP standards.
+    control_id: TDA-04
+    control_objective: Align SDLC documentation with SCF standards and include secure coding elements.
+    criticality: High
+    informational: false
+    escalate_if_no: false
+    inherent_pts: 9.0
+    residual_pts: 2.0
+  '37':
+    qid: '37'
+    topic: Secure Coding
+    text: Do you utilize Secure Coding Principles - (Detailed logging, encrypted credentials, etc.)?
+    rule: Request evidence of secure coding practices; require remediation if absent; mandate code review processes.
+    control_id: TDA-06
+    control_objective: Applications must be developed using secure coding principles to prevent vulnerabilities in web applications.
+    criticality: Critical
+    informational: false
+    escalate_if_no: false
+    inherent_pts: 9.0
+    residual_pts: 2.0
+  '38':
+    qid: '38'
+    topic: Vulnerability Management
+    text: Are internal vulnerability scans performed?
+    rule: 'If answer is "Yes" :
+
+      Self attestation is sufficient.
+
+
+      If answer is "No":
+
+      Notate engagement scope in reviewer comments in column I and escalate if pushback or no documents/attestation received
+      from vendor.'
+    control_id: VPM-06
+    control_objective: 'The organization detects vulnerabilities and configuration errors by conducting recurring vulnerability
+      scans of systems and web applications.
+
+      Remediate vulnerabilities based on risk level:
+
+
+      High-risk: within 30 days
+
+      Moderate-risk: within 90 days
+
+      Low-risk: within 180 days'
+    criticality: High
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 9.0
+    residual_pts: 2.0
+  '39':
+    qid: '39'
+    topic: Vulnerability Management
+    text: On what cadence are vulnerability scans performed?
+    rule: 'If answer is "We don''t have a formal cadence", "Other" or "N/A":
+
+      Request scan frequency details, if not provided; Escalate for critical gaps.
+
+
+      Notate engagement scope in reviewer comments in column I and escalate if pushback or no documents/attestation received
+      from vendor.'
+    control_id: ''
+    control_objective: ''
+    criticality: ''
+    informational: true
+    escalate_if_no: true
+    inherent_pts: 0.0
+    score_notes:
+    - Informational
+    - Informational
+    residual_pts: 0.0
+  '40':
+    qid: '40'
+    topic: Vulnerability Management
+    text: What are the documented remediation timelines for critical and high patches?
+    rule: "Request patch timelines.\nRecommend contractual SLAs for Legal Review (critical within 30 days, high within 60\
+      \ days); \n\nIf timelines provided are not compliant, notate engagement scope in reviewer comments in column I and escalate."
+    control_id: VPM-01
+    control_objective: The organization facilitates the implementation and monitoring of vulnerability and patch management
+      controls to reduce exposure to known threats.
+    criticality: High
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 9.0
+    residual_pts: 2.0
+  '41':
+    qid: '41'
+    topic: Business Continuity & Disaster Recovery
+    text: What is the process for disaster recovery and backups?
+    rule: "DR Documentation Required; require remediation plan if missing.\n\nVerify mandated backup verbiage is flagged for\
+      \ Legal review in the summary tab. \n\nNotate engagement scope in reviewer comments in column I and escalate if pushback\
+      \ or no documents/attestation received from vendor."
+    control_id: BCD-06
+    control_objective: Maintain and update BC/DR plans regularly to reflect changes in business operations, technology, and
+      risk landscape.
+    criticality: Moderate
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 3.0
+    residual_pts: 0.0
+  '42':
+    qid: '42'
+    topic: Business Continuity & Disaster Recovery
+    text: Please provide a copy of your BC/DR policy for review.
+    rule: "Required submission of BC/DR policy; escalate if unavailable; Recommend mandatory periodic testing to be included\
+      \ in contract provision. \n\nIf non-compliant, notate engagement scope in reviewer comments in column I and escalate\
+      \ if pushback or no documents/attestation received from vendor."
+    control_id: BCD-01
+    control_objective: Define criteria to initiate BC/DR plans that support business continuity operations capable of meeting
+      Recovery Time Objectives (RTOs) and Recovery Point Objectives (RPOs).
+    criticality: High
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 3.0
+    residual_pts: 0.0
+  '43':
+    qid: '43'
+    topic: Incident Response
+    text: Do you keep a record of security events?
+    rule: 'If answer is "Yes" :
+
+      Self attestation is sufficient.
+
+      Recommend mandatory log retention in contract for Legal review.
+
+
+      If answer is "No":
+
+      Notate engagement scope in reviewer comments in column I and escalate if pushback or no documents/attestation received
+      from vendor.  Recommend mandatory log retention in contract for Legal review.'
+    control_id: MON-02
+    control_objective: The organization must utilize a Security Incident Event Manager (SIEM) or similar automated tool to
+      support the centralized collection of security-related event logs.
+    criticality: Critical
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 9.0
+    residual_pts: 2.0
+  '44':
+    qid: '44'
+    topic: Incident Response
+    text: Do you monitor the security of your wireless networks?
+    rule: 'If answer is "Yes" :
+
+      Self attestation is sufficient.
+
+
+      If answer is "No" and Vendor will have access to our network:
+
+      Notate engagement scope in reviewer comments in column I and escalate if pushback or no documents/attestation received
+      from vendor.'
+    control_id: NET-01
+    control_objective: Develop, govern, and update procedures to implement network security controls.
+    criticality: High
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 9.0
+    residual_pts: 2.0
+  '45':
+    qid: '45'
+    topic: Incident Response
+    text: Do you have an incident response plan in place? If yes, describe briefly.
+    rule: "If answer is \"Yes\" :\nRequest IR plan; \nVerify mandated annual testing in contract is flagged for Legal review.\
+      \ \n\nIf answer is \"No\" and Vendor is an SC1 or SC2 criticality:\nNotate engagement scope in reviewer comments in\
+      \ column I and escalate if pushback or no documents/attestation received from vendor."
+    control_id: IRO-04
+    control_objective: The organization maintains and makes available a current and viable Incident Response Plan (IRP) to
+      all stakeholders.
+    criticality: Critical
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 9.0
+    residual_pts: 2.0
+  '46':
+    qid: '46'
+    topic: Incident Response
+    text: How often is your Incident Response Plan Tested?(Drop Down)
+    rule: "If answer is \"Yes\" :\nRequest IR plan; \nVerify mandated annual testing in contract is flagged for Legal review.\
+      \ \n\nIf answer is \"No\" and Vendor is an SC1 or SC2 criticality:\nNotate engagement scope in reviewer comments in\
+      \ column I and escalate if pushback or no documents/attestation received from vendor."
+    control_id: IRO-04
+    control_objective: The organization maintains and makes available a current and viable Incident Response Plan (IRP) to
+      all stakeholders.
+    criticality: Critical
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 9.0
+    residual_pts: 2.0
+  '47':
+    qid: '47'
+    topic: Incident Response
+    text: Do you have a policy requiring prompt notice to third parties regarding information security events affecting your
+      organization?
+    rule: 'If answer is "Yes" :
+
+      Request breach notification policy if vendor has not provided an assurance document such as an SOC 2 Type 2 report that
+      covers this area; require remediation if missing; mandate contractual notification clauses.
+
+
+      If answer is "No":
+
+      Notate engagement scope in reviewer comments in column I and escalate if pushback or no documents/attestation received
+      from vendor.'
+    control_id: 'PRI-05;
+
+      DCH-01'
+    control_objective: 'Ensure that personal data is retained only for as long as necessary to fulfill its intended purpose
+      and is securely disposed of when no longer needed.
+
+      Facilitate the implementation of data protection controls across Regodit systems and services.'
+    criticality: 'Critical
+
+      Critical'
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 12.0
+    score_notes:
+    - Mapped to 2 Risks
+    - Mapped to 2 Risks
+    residual_pts: 2.0
+  '48':
+    qid: '48'
+    topic: Incident Response
+    text: Regardless of materiality, have you had a security event in the last 5 years?
+    rule: 'If answer is "No":
+
+      Sel-attestation is sufficient.
+
+
+      If answer is "Yes" :
+
+      Request details of past incidents; require corrective action evidence; escalate for high-risk history.
+
+
+      Notate engagement scope in reviewer comments in column I and escalate.'
+    control_id: ''
+    control_objective: ''
+    criticality: ''
+    informational: true
+    escalate_if_no: true
+    inherent_pts: 0.0
+    score_notes:
+    - Informational
+    - Informational
+    residual_pts: 0.0
+  '49':
+    qid: '49'
+    topic: Incident Response
+    text: Do you outsource security functions to third-party providers?
+    rule: "If answer is \"No\":\nSel-attestation is sufficient.\n\nIf answer is \"Yes\" :\nRequest list of providers; \nGet\
+      \ 1PD attestation that recent security reviews have been performed on the provided list of third-party providers.\n\n\
+      Verify mandated contractual obligations for providers is flagged for Legal review on the summary tab. \n\nNotate engagement\
+      \ scope in reviewer comments in column I and escalate if pushback or no documents/attestation received from vendor."
+    control_id: MON-01
+    control_objective: Ensure that the organization monitors third-party personnel activity for potential security incidents,
+      especially when security functions are outsourced.
+    criticality: Critical
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 9.0
+    residual_pts: 2.0
+  '50':
+    qid: '50'
+    topic: Network & Endpoint Security
+    text: Do you use anti virus software to protect your devices? If yes, describe.
+    rule: 'If answer is "Yes" :
+
+      Self-attestation is sufficient.
+
+
+      If answer is "No":
+
+      Notate engagement scope in reviewer comments in column I and escalate.
+
+      Verify mandated endpoint protection verbiage is flagged for Legal review on the summary tab.'
+    control_id: END-01
+    control_objective: Requires deployment of endpoint protection software (e.g., anti-virus, anti-malware) to detect and
+      prevent threats such as ransomware and other cyber attacks.
+    criticality: Moderate
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 9.0
+    residual_pts: 2.0
+  '51':
+    qid: '51'
+    topic: Network & Endpoint Security
+    text: Will your organization be accessing Client XYZ's network?
+    rule: 'If answer is "No":
+
+      Self-attestation is sufficient.
+
+
+      If answer is "Yes":
+
+      Require network access controls; mandate MFA; escalate for exceptions.'
+    control_id: NET-01
+    control_objective: Develop, govern, and update procedures to implement network security controls.
+    criticality: High
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 9.0
+    residual_pts: 2.0
+  '53':
+    qid: '53'
+    topic: Network & Endpoint Security
+    text: Please list out all authorized personnel, including first and last names and e-mail addresses from your organization
+      that will have access to Client XYZ's assets or network.
+    rule: "If answer to Security Question ID# 52 is \"No\": \nSecurity Question ID#'s 53 & 54 are not required. \n\nIf answer\
+      \ to Security Question ID# 52 is \"Yes\": \nRequire submission of personnel list.\nVerify mandated notifications for\
+      \ personnel changes is flagged for Legal review on the summary tab. \nNotate engagement scope in reviewer comments in\
+      \ column I and escalate if pushback or no documents/attestation received from vendor."
+    control_id: ''
+    control_objective: ''
+    criticality: ''
+    informational: true
+    escalate_if_no: true
+    inherent_pts: 0.0
+    score_notes:
+    - Informational
+    - Informational
+    residual_pts: 0.0
+  '54':
+    qid: '54'
+    topic: Network & Endpoint Security
+    text: Please submit a network architecture diagram and details of your endpoint protection measures, including how your
+      organization complies with firewall and DNS security standards when accessing XYZ's networks.
+    rule: "If answer to Security Question ID# 52 is \"No\": \nSecurity Question ID#'s 53 & 54 are not required. \n\nIf answer\
+      \ to Security Question ID# 52 is \"Yes\": \nRequest network diagram and endpoint security details; \n\nNotate engagement\
+      \ scope in reviewer comments in column I and escalate if pushback or no documents/attestation received from vendor."
+    control_id: ''
+    control_objective: ''
+    criticality: ''
+    informational: true
+    escalate_if_no: true
+    inherent_pts: 0.0
+    score_notes:
+    - Informational
+    - Informational
+    residual_pts: 0.0
+  '55':
+    qid: '55'
+    topic: Asset Management
+    text: Do you keep an inventory of information technology (IT) assets and software?
+    rule: 'If answer is "Yes" :
+
+      Self-attestation is sufficient.
+
+
+      If answer is "No":
+
+      Request more information on how assets are tracked.
+
+
+      Notate engagement scope in reviewer comments in column I and escalate if pushback or no documents/attestation received
+      from vendor.'
+    control_id: AST-02
+    control_objective: 'Mechanisms exist to perform inventories of technology assets that:
+
+
+      Accurately reflect the current systems, applications, and services in use;
+
+      Identify authorized software products, including business justification details;
+
+      Are at the level of granularity deemed necessary for tracking and reporting;
+
+      Include organization-defined information necessary to achieve effective property accountability;
+
+      Are available for review and audit by designated organizational personnel.'
+    criticality: Moderate
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 9.0
+    residual_pts: 2.0
+  '56':
+    qid: '56'
+    topic: Asset Management
+    text: Does your organization have identity and access controls in place?
+    rule: 'If answer is "Yes" :
+
+      Self-attestation is sufficient.
+
+
+      If answer is "No":
+
+      Verify mandated MFA and least privilege verbiage is flagged for Legal review on the summary tab.
+
+
+      Notate engagement scope in reviewer comments in column I and escalate.'
+    control_id: IAC-01
+    control_objective: The organization facilitates the implementation of identification and access management controls.
+    criticality: High
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 3.0
+    residual_pts: 0.0
+  '57':
+    qid: '57'
+    topic: Asset Management
+    text: Does your organization leverage role-based access control?
+    rule: 'If answer is "Yes" :
+
+      Self-attestation is sufficient.
+
+
+      If answer is "No":
+
+      Notate engagement scope in reviewer comments in column I and escalate.'
+    control_id: IAC-08
+    control_objective: The organization enforces a Role-Based Access Control (RBAC) policy over users and resources that applies
+      need-to-know and fine-grained access control for sensitive/regulated data access.
+    criticality: Critical
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 3.0
+    residual_pts: 0.0
+  '58':
+    qid: '58'
+    topic: Asset Management
+    text: Do you limit and periodically review user access privileges and controls?
+    rule: 'If answer is "Yes" :
+
+      Self-attestation is sufficient.
+
+
+      If answer is "No":
+
+      Verify mandated quarterly access review verbiage is flagged for Legal review on the summary tab.
+
+
+      Notate engagement scope in reviewer comments in column I and escalate.'
+    control_id: ''
+    control_objective: ''
+    criticality: ''
+    informational: true
+    escalate_if_no: true
+    inherent_pts: 0.0
+    score_notes:
+    - Informational
+    - Informational
+    residual_pts: 0.0
+  '59':
+    qid: '59'
+    topic: Asset Management
+    text: What is the cadence of your access reviews?(Drop Down)
+    rule: 'If answer is "We don''t have a formal cadence", "Other" or "N/A":
+
+      Request scan frequency details, if not provided; Escalate for critical gaps. Ideal answer is "Quarterly", however anything
+      greater than annual would merit escalation.'
+    control_id: ''
+    control_objective: ''
+    criticality: ''
+    informational: true
+    escalate_if_no: true
+    inherent_pts: 0.0
+    score_notes:
+    - Informational
+    - Informational
+    residual_pts: 0.0
+  '60':
+    qid: '60'
+    topic: Asset Management
+    text: Does your organization require replay-resistant authentication mechanisms such as OTP or MFA?
+    rule: 'If answer is "Yes" :
+
+      Self-attestation is sufficient.
+
+
+      If answer is "No":
+
+      Request authentication mechanism details.
+
+      Verify mandated MFA implementation obligation verbiage is flagged for Legal review in the summary tab.
+
+
+      Notate engagement scope in reviewer comments in column I and escalate.'
+    control_id: IAC-02.2
+    control_objective: The organization uses automated mechanisms to employ replay-resistant access authentication.
+    criticality: High
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 3.0
+    residual_pts: 0.0
+  '61':
+    qid: '61'
+    topic: Asset Management
+    text: Are the external authenticators in use, NIST compliant?
+    rule: 'If answer is "Yes" :
+
+      Self-attestation is sufficient.
+
+
+      If answer is "No":
+
+      Request authentication mechanism details.
+
+      Verify mandated NIST compliant MFA implementation obligation verbiage is flagged for Legal review in the summary tab.
+
+
+      Notate engagement scope in reviewer comments in column I and escalate.'
+    control_id: IAC-03.5
+    control_objective: The organization restricts the use of external authenticators to those that are National Institute
+      of Standards and Technology (NIST)-compliant and maintain a list of accepted external authenticators.
+    criticality: Critical
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 3.0
+    residual_pts: 0.0
+  '62':
+    qid: '62'
+    topic: Asset Management
+    text: Does your organization enforce the principle of least privilege?
+    rule: 'If answer is "Yes" :
+
+      Self-attestation is sufficient.
+
+
+      If answer is "No":
+
+      Notate engagement scope in reviewer comments in column I and escalate.'
+    control_id: IAC-21
+    control_objective: The organization utilizes the concept of least privilege, allowing only authorized access to processes
+      necessary to accomplish assigned tasks in accordance with organizational business functions.
+    criticality: Critical
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 3.0
+    residual_pts: 0.0
+  '63':
+    qid: '63'
+    topic: Risk Assessment
+    text: Do you conduct information security risk assessments at least annually?
+    rule: 'If answer is "Yes" :
+
+      Self-attestation is sufficient.
+
+
+      If answer is "No":
+
+      Request risk assessment cadence.
+
+
+      If no formal cadence or vendor does not perform risk assessments notate engagement scope in reviewer comments in column
+      I and escalate.'
+    control_id: RSK-01
+    control_objective: The organization facilitates the implementation of strategic, operational and tactical risk management
+      controls.
+    criticality: Critical
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 9.0
+    residual_pts: 2.0
+  '64':
+    qid: '64'
+    topic: Risk Assessment
+    text: How do you prioritize critical assets for your organization?
+    rule: If no response received or vendor gives pushback notate engagement scope in reviewer comments in column I and escalate.
+    control_id: RSK-02.1
+    control_objective: The organization prioritizes the impact level for systems, applications, and/or services to prevent
+      potential disruptions.
+    criticality: High
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 3.0
+    residual_pts: 2.0
+  '65':
+    qid: '65'
+    topic: Risk Assessment
+    text: Does your organization conduct penetration testing at least annually?
+    rule: "If answer is \"Yes\" :\nSelf-attestation is sufficient.\n\nIf answer is \"No\":\nRequest Pentesting cadence. \n\
+      If no formal cadence, vendor does not perform pentests (internal or external) or pentesting is performed on a cadence\
+      \ greater than annually, notate engagement scope in reviewer comments in column I and escalate."
+    control_id: CPL-03.2
+    control_objective: Mechanisms exist to regularly review technology assets for adherence to the organization’s cybersecurity
+      & data protection policies and standards.
+    criticality: Moderate
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 3.0
+    residual_pts: 2.0
+  '66':
+    qid: '66'
+    topic: Risk Assessment
+    text: Have the findings from the most recent penetration test been remediated?
+    rule: 'If answer is "Yes" :
+
+      Self-attestation is sufficient.
+
+
+      If answer is "No":
+
+      Request findings detail and remediation timeline.
+
+      Escalate if any critical or high vulnerabilities are outstanding.
+
+      If remediation timeline is provided, set a followup when remediation is expected to complete.
+
+      Notate engagement scope in reviewer comments in column I and escalate.'
+    control_id: CPL-03.2
+    control_objective: Mechanisms exist to regularly review technology assets for adherence to the organization’s cybersecurity
+      & data protection policies and standards.
+    criticality: Moderate
+    informational: false
+    escalate_if_no: true
+    inherent_pts: 3.0
+    residual_pts: 2.0
+  '52':
+    qid: '52'
+    topic: ''
+    text: Will you be using an Regodit asset to access Regodit's network?
+    rule: 'If answer is "Yes":
+
+      Require attestation to Regodit''s Acceptable Use policy.
+
+
+      If answer is "No":
+
+      Self-attestation is sufficient.'
+    control_id: AST-03
+    control_objective: Mechanisms exist to ensure asset ownership responsibilities are assigned, tracked and managed at a
+      team, individual, or responsible organization level to establish a common understanding of requirements for asset protection.
+    criticality: Moderate
+    informational: false
+    escalate_if_no: false
+    inherent_pts: 9.0
+    residual_pts: 2.0
+criticality_table:
+- vendor_type: Technology
+  access: No Access
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Technology
+  access: Network
+  criticality: 'SC2: Business Critical'
+- vendor_type: Technology
+  access: Data
+  criticality: 'SC2: Business Critical'
+- vendor_type: Technology
+  access: Assets
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Technology
+  access: Locations
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Technology
+  access: Network&Data
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Technology
+  access: Network&Assets
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Technology
+  access: Network&Locations
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Technology
+  access: Data&Assets
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Technology
+  access: Data&Locations
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Technology
+  access: Assets&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Technology
+  access: Network&Data&Assets
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Technology
+  access: Network&Data&Locations
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Technology
+  access: Network&Assets&Locations
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Technology
+  access: Data&Assets&Locations
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Technology
+  access: All Access
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Cloud Service Provider
+  access: No Access
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Cloud Service Provider
+  access: Network
+  criticality: 'SC2: Business Critical'
+- vendor_type: Cloud Service Provider
+  access: Data
+  criticality: 'SC2: Business Critical'
+- vendor_type: Cloud Service Provider
+  access: Assets
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Cloud Service Provider
+  access: Locations
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Cloud Service Provider
+  access: Network&Data
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Cloud Service Provider
+  access: Network&Assets
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Cloud Service Provider
+  access: Network&Locations
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Cloud Service Provider
+  access: Data&Assets
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Cloud Service Provider
+  access: Data&Locations
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Cloud Service Provider
+  access: Assets&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Cloud Service Provider
+  access: Network&Data&Assets
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Cloud Service Provider
+  access: Network&Data&Locations
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Cloud Service Provider
+  access: Network&Assets&Locations
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Cloud Service Provider
+  access: Data&Assets&Locations
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Cloud Service Provider
+  access: All Access
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Managed Service Provider(MSP)
+  access: No Access
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Managed Service Provider(MSP)
+  access: Network
+  criticality: 'SC2: Business Critical'
+- vendor_type: Managed Service Provider(MSP)
+  access: Data
+  criticality: 'SC2: Business Critical'
+- vendor_type: Managed Service Provider(MSP)
+  access: Assets
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Managed Service Provider(MSP)
+  access: Locations
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Managed Service Provider(MSP)
+  access: Network&Data
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Managed Service Provider(MSP)
+  access: Network&Assets
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Managed Service Provider(MSP)
+  access: Network&Locations
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Managed Service Provider(MSP)
+  access: Data&Assets
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Managed Service Provider(MSP)
+  access: Data&Locations
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Managed Service Provider(MSP)
+  access: Assets&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Managed Service Provider(MSP)
+  access: Network&Data&Assets
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Managed Service Provider(MSP)
+  access: Network&Data&Locations
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Managed Service Provider(MSP)
+  access: Network&Assets&Locations
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Managed Service Provider(MSP)
+  access: Data&Assets&Locations
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Managed Service Provider(MSP)
+  access: All Access
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Managed Security Service Provider(MSSP)
+  access: No Access
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Managed Security Service Provider(MSSP)
+  access: Network
+  criticality: 'SC2: Business Critical'
+- vendor_type: Managed Security Service Provider(MSSP)
+  access: Data
+  criticality: 'SC2: Business Critical'
+- vendor_type: Managed Security Service Provider(MSSP)
+  access: Assets
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Managed Security Service Provider(MSSP)
+  access: Locations
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Managed Security Service Provider(MSSP)
+  access: Network&Data
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Managed Security Service Provider(MSSP)
+  access: Network&Assets
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Managed Security Service Provider(MSSP)
+  access: Network&Locations
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Managed Security Service Provider(MSSP)
+  access: Data&Assets
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Managed Security Service Provider(MSSP)
+  access: Data&Locations
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Managed Security Service Provider(MSSP)
+  access: Assets&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Managed Security Service Provider(MSSP)
+  access: Network&Data&Assets
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Managed Security Service Provider(MSSP)
+  access: Network&Data&Locations
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Managed Security Service Provider(MSSP)
+  access: Network&Assets&Locations
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Managed Security Service Provider(MSSP)
+  access: Data&Assets&Locations
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Managed Security Service Provider(MSSP)
+  access: All Access
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Software
+  access: No Access
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Software
+  access: Network
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Software
+  access: Data
+  criticality: 'SC2: Business Critical'
+- vendor_type: Software
+  access: Assets
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Software
+  access: Locations
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Software
+  access: Network&Data
+  criticality: 'SC2: Business Critical'
+- vendor_type: Software
+  access: Network&Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Software
+  access: Network&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Software
+  access: Data&Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Software
+  access: Data&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Software
+  access: Assets&Locations
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Software
+  access: Network&Data&Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Software
+  access: Network&Data&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Software
+  access: Network&Assets&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Software
+  access: Data&Assets&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Software
+  access: All Access
+  criticality: 'SC2: Business Critical'
+- vendor_type: Hardware
+  access: No Access
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Hardware
+  access: Network
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Hardware
+  access: Data
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Hardware
+  access: Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Hardware
+  access: Locations
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Hardware
+  access: Network&Data
+  criticality: 'SC2: Business Critical'
+- vendor_type: Hardware
+  access: Network&Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Hardware
+  access: Network&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Hardware
+  access: Data&Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Hardware
+  access: Data&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Hardware
+  access: Assets&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Hardware
+  access: Network&Data&Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Hardware
+  access: Network&Data&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Hardware
+  access: Network&Assets&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Hardware
+  access: Data&Assets&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Hardware
+  access: All Access
+  criticality: 'SC2: Business Critical'
+- vendor_type: Consulting/Professional Services
+  access: No Access
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Consulting/Professional Services
+  access: Network
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Consulting/Professional Services
+  access: Data
+  criticality: 'SC2: Business Critical'
+- vendor_type: Consulting/Professional Services
+  access: Assets
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Consulting/Professional Services
+  access: Locations
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Consulting/Professional Services
+  access: Network&Data
+  criticality: 'SC2: Business Critical'
+- vendor_type: Consulting/Professional Services
+  access: Network&Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Consulting/Professional Services
+  access: Network&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Consulting/Professional Services
+  access: Data&Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Consulting/Professional Services
+  access: Data&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Consulting/Professional Services
+  access: Assets&Locations
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Consulting/Professional Services
+  access: Network&Data&Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Consulting/Professional Services
+  access: Network&Data&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Consulting/Professional Services
+  access: Network&Assets&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Consulting/Professional Services
+  access: Data&Assets&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Consulting/Professional Services
+  access: All Access
+  criticality: 'SC2: Business Critical'
+- vendor_type: Business Process Outsourcing(BPO)
+  access: No Access
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Business Process Outsourcing(BPO)
+  access: Network
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Business Process Outsourcing(BPO)
+  access: Data
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Business Process Outsourcing(BPO)
+  access: Assets
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Business Process Outsourcing(BPO)
+  access: Locations
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Business Process Outsourcing(BPO)
+  access: Network&Data
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Business Process Outsourcing(BPO)
+  access: Network&Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Business Process Outsourcing(BPO)
+  access: Network&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Business Process Outsourcing(BPO)
+  access: Data&Assets
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Business Process Outsourcing(BPO)
+  access: Data&Locations
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Business Process Outsourcing(BPO)
+  access: Assets&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Business Process Outsourcing(BPO)
+  access: Network&Data&Assets
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Business Process Outsourcing(BPO)
+  access: Network&Data&Locations
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Business Process Outsourcing(BPO)
+  access: Network&Assets&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Business Process Outsourcing(BPO)
+  access: Data&Assets&Locations
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Business Process Outsourcing(BPO)
+  access: All Access
+  criticality: 'SC1: Mission Critical'
+- vendor_type: Facilities
+  access: No Access
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Facilities
+  access: Network
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Facilities
+  access: Data
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Facilities
+  access: Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Facilities
+  access: Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Facilities
+  access: Network&Data
+  criticality: 'SC2: Business Critical'
+- vendor_type: Facilities
+  access: Network&Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Facilities
+  access: Network&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Facilities
+  access: Data&Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Facilities
+  access: Data&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Facilities
+  access: Assets&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Facilities
+  access: Network&Data&Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Facilities
+  access: Network&Data&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Facilities
+  access: Network&Assets&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Facilities
+  access: Data&Assets&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Facilities
+  access: All Access
+  criticality: 'SC2: Business Critical'
+- vendor_type: Logistics
+  access: No Access
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Logistics
+  access: Network
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Logistics
+  access: Data
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Logistics
+  access: Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Logistics
+  access: Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Logistics
+  access: Network&Data
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Logistics
+  access: Network&Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Logistics
+  access: Network&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Logistics
+  access: Data&Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Logistics
+  access: Data&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Logistics
+  access: Assets&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Logistics
+  access: Network&Data&Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Logistics
+  access: Network&Data&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Logistics
+  access: Network&Assets&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Logistics
+  access: Data&Assets&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Logistics
+  access: All Access
+  criticality: 'SC2: Business Critical'
+- vendor_type: Marketing
+  access: No Access
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Marketing
+  access: Network
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Marketing
+  access: Data
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Marketing
+  access: Assets
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Marketing
+  access: Locations
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Marketing
+  access: Network&Data
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Marketing
+  access: Network&Assets
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Marketing
+  access: Network&Locations
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Marketing
+  access: Data&Assets
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Marketing
+  access: Data&Locations
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Marketing
+  access: Assets&Locations
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Marketing
+  access: Network&Data&Assets
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Marketing
+  access: Network&Data&Locations
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Marketing
+  access: Network&Assets&Locations
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Marketing
+  access: Data&Assets&Locations
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Marketing
+  access: All Access
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Financial
+  access: No Access
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Financial
+  access: Network
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Financial
+  access: Data
+  criticality: 'SC2: Business Critical'
+- vendor_type: Financial
+  access: Assets
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Financial
+  access: Locations
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Financial
+  access: Network&Data
+  criticality: 'SC2: Business Critical'
+- vendor_type: Financial
+  access: Network&Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Financial
+  access: Network&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Financial
+  access: Data&Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Financial
+  access: Data&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Financial
+  access: Assets&Locations
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Financial
+  access: Network&Data&Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Financial
+  access: Network&Data&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Financial
+  access: Network&Assets&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Financial
+  access: Data&Assets&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Financial
+  access: All Access
+  criticality: 'SC2: Business Critical'
+- vendor_type: Legal/Compliance
+  access: No Access
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Legal/Compliance
+  access: Network
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Legal/Compliance
+  access: Data
+  criticality: 'SC2: Business Critical'
+- vendor_type: Legal/Compliance
+  access: Assets
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Legal/Compliance
+  access: Locations
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Legal/Compliance
+  access: Network&Data
+  criticality: 'SC2: Business Critical'
+- vendor_type: Legal/Compliance
+  access: Network&Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Legal/Compliance
+  access: Network&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Legal/Compliance
+  access: Data&Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Legal/Compliance
+  access: Data&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Legal/Compliance
+  access: Assets&Locations
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Legal/Compliance
+  access: Network&Data&Assets
+  criticality: 'SC2: Business Critical'
+- vendor_type: Legal/Compliance
+  access: Network&Data&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Legal/Compliance
+  access: Network&Assets&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Legal/Compliance
+  access: Data&Assets&Locations
+  criticality: 'SC2: Business Critical'
+- vendor_type: Legal/Compliance
+  access: All Access
+  criticality: 'SC2: Business Critical'
+- vendor_type: Other
+  access: No Access
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Other
+  access: Network
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Other
+  access: Data
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Other
+  access: Assets
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Other
+  access: Locations
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Other
+  access: Network&Data
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Other
+  access: Network&Assets
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Other
+  access: Network&Locations
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Other
+  access: Data&Assets
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Other
+  access: Data&Locations
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Other
+  access: Assets&Locations
+  criticality: 'SC4: Business Supporting'
+- vendor_type: Other
+  access: Network&Data&Assets
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Other
+  access: Network&Data&Locations
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Other
+  access: Network&Assets&Locations
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Other
+  access: Data&Assets&Locations
+  criticality: 'SC3: Non-Critical'
+- vendor_type: Other
+  access: All Access
+  criticality: 'SC3: Non-Critical'
+requested_documents:
+- Third-Party Risk Management Policy
+- Data Retention Schedule
+- Secure Disposal Procedures
+- BC/DR Policy AND/OR Plan
+- Authorized Personnel Access List
+- Network Architecture Diagram
+- EndPoint Protections Description/Document
+- COI with Cyber Liability Insurance
+attestations:
+- ISO 27001
+- SOC 2 Type 1
+- SOC 2 Type 2
+- Other
+- N/A
+- We Don't Have One

@@ -1,0 +1,73 @@
+# Hand-authored mapping of the 66 workbook questions → controls and required slots.
+# answer_type: yes_no | text | dropdown | attach | list
+# slots: attribute → short description; the planner asks only for empty/conflicted slots.
+# The question text, criticality, scores and assessor rules come from buyer_rules.yaml (generated).
+questions:
+  "1":  {controls: [governance_program], answer_type: yes_no, slots: {exists: "Formal InfoSec program established", owner: "Who owns it"}}
+  "2":  {controls: [security_policies], answer_type: yes_no, slots: {exists: "Published policy set", count_or_list: "Which policies exist", review_cadence: "How often reviewed"}}
+  "3":  {controls: [public_security_policy], answer_type: yes_no, slots: {exists: "Public security policy/trust page exists", url: "URL"}}
+  "4":  {controls: [roles_responsibilities], answer_type: yes_no, slots: {exists: "Role descriptions include security responsibilities"}}
+  "5":  {controls: [oversight_escalation], answer_type: yes_no, slots: {exists: "Oversight procedure", escalation_path: "How issues reach leadership"}}
+  "6":  {controls: [subcontractors], answer_type: yes_no, slots: {uses_subcontractors: "Will contractors/subcontractors work on this engagement", who: "Which ones"}}
+  "7":  {controls: [third_party_risk], answer_type: yes_no, slots: {exists: "TPRM program/policy in place"}}
+  "8":  {controls: [third_party_risk], answer_type: attach, slots: {document_available: "TPRM policy document can be attached"}}
+  "9":  {controls: [supply_chain, third_party_risk], answer_type: yes_no, slots: {exists: "Supply-chain protections", measures: "What measures"}}
+  "10": {controls: [contract_security_clauses], answer_type: yes_no, slots: {clauses_present: "Security/privacy clauses in vendor agreements", flow_down: "Flow down to subcontractors"}}
+  "11": {controls: [security_training], answer_type: yes_no, slots: {onboarding: "Training at onboarding", annual: "Annual refresher", contractors_included: "Contractors included", completed_cycle: "Has a full annual cycle completed"}}
+  "12": {controls: [security_training], answer_type: dropdown, slots: {cadence: "Training cadence (Annually, Semi-Annually, ...)"}, options: ["We don't have a formal cadence", "Daily", "Weekly", "Monthly", "Annually", "Semi-Annually", "Bienally", "Other", "N/A"]}
+  "13": {controls: [role_based_training], answer_type: yes_no, slots: {exists: "Role-based training at least annually"}}
+  "14": {controls: [privacy_program], answer_type: yes_no, slots: {exists: "Privacy program/controls", owner: "Who owns privacy"}}
+  "15": {controls: [sensitive_data_handling], answer_type: yes_no, slots: {requires_sensitive_data: "Will the engagement require PII/PHI access", data_types: "Which data types"}}
+  "16": {controls: [data_retention_disposal], answer_type: attach, slots: {retention_schedule_available: "Retention schedule exists", disposal_procedure_available: "Secure disposal procedure exists"}}
+  "17": {controls: [privacy_policy], answer_type: yes_no, slots: {exists: "Privacy policy exists", url: "URL"}}
+  "18": {controls: [contract_security_clauses, privacy_program], answer_type: yes_no, slots: {contractual_privacy: "Privacy requirements in contracts", roles_documented: "Privacy roles documented"}}
+  "19": {controls: [data_location, company_profile], answer_type: yes_no, slots: {outside_us: "Sensitive data stored outside the US", locations: "Regions/countries", personnel_outside_us: "Personnel outside the US with data access"}}
+  "20": {controls: [encryption_at_rest], answer_type: yes_no, slots: {required: "At-rest encryption required", algorithm: "Algorithm/key length"}}
+  "21": {controls: [encryption_in_transit], answer_type: yes_no, slots: {required: "In-transit encryption required", protocols: "Protocols (TLS versions)"}}
+  "22": {controls: [data_hosting, data_location], answer_type: dropdown, slots: {hosting_model: "On site / data center / third party", provider: "Provider", region: "Region"}, options: ["On site", "Data center", "Third party"]}
+  "23": {controls: [data_retention_disposal], answer_type: yes_no, slots: {retention_policy: "Retention policy exists", disposal_procedure: "Secure disposal procedure"}}
+  "24": {controls: [data_flow_diagrams], answer_type: yes_no, slots: {available_on_request: "Data flow diagrams can be provided"}}
+  "25": {controls: [physical_security], answer_type: yes_no, slots: {policy_exists: "Physical security policy exists", premises: "Offices/premises operated"}}
+  "26": {controls: [client_site_access], answer_type: yes_no, slots: {required: "Physical access to client locations required"}}
+  "27": {controls: [visitor_management], answer_type: yes_no, slots: {accepts: "Willing to accept client visitor management expectations"}}
+  "28": {controls: [onsite_asset_tracking], answer_type: yes_no, slots: {procedure_exists: "Procedure to track assets brought on site"}}
+  "29": {controls: [physical_security, endpoint_protection], answer_type: yes_no, slots: {policy_available: "Data protection policy can be provided", device_safeguards: "Physical safeguards for devices"}}
+  "30": {controls: [web_application], answer_type: yes_no, slots: {web_app_used: "Client will use a web application"}}
+  "31": {controls: [web_application], answer_type: text, slots: {name: "Web application name"}}
+  "32": {controls: [web_application], answer_type: text, slots: {purpose: "Function/purpose"}}
+  "33": {controls: [vulnerability_disclosure], answer_type: text, slots: {channel: "How vulnerabilities are reported (email, security.txt, bug bounty)"}}
+  "34": {controls: [tls_certificate], answer_type: yes_no, slots: {has_certificate: "TLS certificate present", tls_version: "TLS version"}}
+  "35": {controls: [sso_support], answer_type: yes_no, slots: {sso_offered: "SSO offered", planned_date: "Implementation date if planned"}}
+  "36": {controls: [secure_development], answer_type: yes_no, slots: {policy_exists: "Secure development policy/standard", code_review: "Peer review before merge"}}
+  "37": {controls: [secure_coding], answer_type: yes_no, slots: {principles_used: "Secure coding principles", logging: "Detailed logging", credential_handling: "Encrypted credentials / secrets manager"}}
+  "38": {controls: [vulnerability_scanning], answer_type: yes_no, slots: {internal_scans: "Internal vulnerability scans performed", automated: "Automated", tooling: "Tooling"}}
+  "39": {controls: [vulnerability_scanning], answer_type: text, slots: {cadence: "Scan cadence"}}
+  "40": {controls: [patch_remediation_sla], answer_type: text, slots: {critical_sla: "Critical remediation timeline", high_sla: "High remediation timeline"}}
+  "41": {controls: [backup_recovery], answer_type: text, slots: {performed: "Backups performed", frequency: "Frequency", automated: "Automated", encrypted: "Encrypted", restore_tested: "Restore test performed", rto_rpo: "RTO/RPO", cross_region: "Cross-region / offsite copy"}}
+  "42": {controls: [bcdr_policy], answer_type: attach, slots: {document_available: "BC/DR policy can be provided"}}
+  "43": {controls: [security_logging], answer_type: yes_no, slots: {logging: "Security events recorded", retention: "Retention period", tooling: "Tooling"}}
+  "44": {controls: [wireless_security], answer_type: yes_no, slots: {monitored: "Wireless networks monitored", has_wireless: "Company operates wireless networks"}}
+  "45": {controls: [incident_response], answer_type: yes_no, slots: {plan_exists: "IR plan exists", summary: "Brief description / severity levels"}}
+  "46": {controls: [ir_testing], answer_type: dropdown, slots: {cadence: "IR plan test cadence"}, options: ["Never", "Annually", "Semi-Annually", "Quarterly", "Other"]}
+  "47": {controls: [breach_notification], answer_type: yes_no, slots: {policy_exists: "Prompt notice policy exists", timeline: "Notification timeline"}}
+  "48": {controls: [security_incident_history], answer_type: yes_no, slots: {had_event: "Security event in last 5 years", details: "Details if yes"}}
+  "49": {controls: [outsourced_security], answer_type: yes_no, slots: {outsourced: "Security functions outsourced", providers: "Which providers"}}
+  "50": {controls: [endpoint_protection], answer_type: yes_no, slots: {av_used: "Anti-virus/EDR used", product: "Product/mechanism"}}
+  "51": {controls: [client_network_access], answer_type: yes_no, slots: {will_access: "Will access the client's network"}}
+  "52": {controls: [client_network_access, asset_inventory], answer_type: yes_no, slots: {uses_client_assets: "Will use client-provided assets to access client network"}}
+  "53": {controls: [authorized_personnel], answer_type: list, slots: {personnel_list: "Names and emails with access to client assets/network"}}
+  "54": {controls: [network_architecture, endpoint_protection], answer_type: attach, slots: {diagram_available: "Network architecture diagram", endpoint_description: "Endpoint protection description", firewall_dns_compliance: "Firewall/DNS standards when accessing client network"}}
+  "55": {controls: [asset_inventory], answer_type: yes_no, slots: {inventory_exists: "IT asset inventory", software_inventory: "Software inventory"}}
+  "56": {controls: [identity_access_management, production_access], answer_type: yes_no, slots: {controls_exist: "Identity & access controls", who_has_production_access: "Who holds production access"}}
+  "57": {controls: [rbac], answer_type: yes_no, slots: {rbac_used: "RBAC used"}}
+  "58": {controls: [access_review, least_privilege], answer_type: yes_no, slots: {reviews_performed: "Access reviews performed", last_review: "Last review date", findings_remediated: "Findings remediated"}}
+  "59": {controls: [access_review], answer_type: dropdown, slots: {cadence: "Access review cadence"}, options: ["Monthly", "Quarterly", "Semi-Annually", "Annually", "Ad hoc"]}
+  "60": {controls: [mfa], answer_type: yes_no, slots: {mfa_required: "MFA required", scope: "Which systems", product_auth: "Product/customer-facing authentication"}}
+  "61": {controls: [authenticator_standards, mfa], answer_type: yes_no, slots: {nist_compliant: "Authenticators NIST 800-63B compliant", types: "Authenticator types"}}
+  "62": {controls: [least_privilege], answer_type: yes_no, slots: {enforced: "Least privilege enforced"}}
+  "63": {controls: [risk_assessment], answer_type: yes_no, slots: {annual: "Risk assessment at least annually", last_performed: "Last performed"}}
+  "64": {controls: [asset_prioritization, risk_assessment], answer_type: text, slots: {method: "How critical assets are prioritised"}}
+  "65": {controls: [penetration_testing], answer_type: yes_no, slots: {annual: "Pentest at least annually", last_test: "Most recent test", provider: "Who performed it"}}
+  "66": {controls: [pentest_remediation], answer_type: yes_no, slots: {remediated: "Findings remediated", open_findings: "Open findings", retest: "Retest evidence"}}
+topic_overrides:
+  "52": Network & Endpoint Security

@@ -1,0 +1,69 @@
+# Control taxonomy used to tag claims and group evidence. Keep ids stable.
+# owner_role: who in the company is the right person to ask (used by the interview planner)
+controls:
+  governance_program: {name: Information security program, owner_role: CEO}
+  security_policies: {name: Published security policies/standards/procedures, owner_role: CEO}
+  public_security_policy: {name: Publicly available security policy / trust page, owner_role: CBO}
+  roles_responsibilities: {name: Documented security roles & responsibilities, owner_role: CEO}
+  oversight_escalation: {name: Control oversight and escalation to leadership, owner_role: CEO}
+  subcontractors: {name: Use of contractors / subcontractors on engagements, owner_role: CBO}
+  third_party_risk: {name: Third-party / vendor risk management program, owner_role: CEO}
+  supply_chain: {name: Supply-chain security protections, owner_role: CTO}
+  contract_security_clauses: {name: Security & privacy clauses flowing down to vendors, owner_role: CBO}
+  security_training: {name: Security awareness training (onboarding + annual), owner_role: CBO}
+  role_based_training: {name: Role-based security training, owner_role: CBO}
+  privacy_program: {name: Privacy program / controls, owner_role: CBO}
+  sensitive_data_handling: {name: Handling of PII/PHI/sensitive data, owner_role: CBO}
+  data_retention_disposal: {name: Data retention schedule & secure disposal, owner_role: CBO}
+  privacy_policy: {name: Privacy policy (public), owner_role: CBO}
+  data_location: {name: Data storage locations / residency (incl. outside US), owner_role: CTO}
+  encryption_at_rest: {name: Encryption at rest, owner_role: CTO}
+  encryption_in_transit: {name: Encryption in transit (TLS), owner_role: CTO}
+  data_hosting: {name: Hosting model (on-site / data center / cloud third party), owner_role: CTO}
+  data_flow_diagrams: {name: Data flow diagrams availability, owner_role: CTO}
+  physical_security: {name: Physical security policy / premises, owner_role: CEO}
+  client_site_access: {name: Need for physical access to client locations, owner_role: CBO}
+  visitor_management: {name: Acceptance of client visitor management expectations, owner_role: CBO}
+  onsite_asset_tracking: {name: Tracking assets brought onto client sites, owner_role: CBO}
+  web_application: {name: Web application offered (name / purpose), owner_role: CTO}
+  vulnerability_disclosure: {name: How application vulnerabilities are reported (disclosure channel), owner_role: CTO}
+  tls_certificate: {name: SSL/TLS certificate on the web application, owner_role: CTO}
+  sso_support: {name: SSO support in the product, owner_role: CTO}
+  secure_development: {name: Secure development lifecycle policy, owner_role: CTO}
+  secure_coding: {name: Secure coding principles (logging, encrypted credentials), owner_role: CTO}
+  vulnerability_scanning: {name: Internal vulnerability scanning and cadence, owner_role: CTO}
+  patch_remediation_sla: {name: Remediation timelines for critical/high vulnerabilities, owner_role: CTO}
+  backup_recovery: {name: Backups & disaster recovery process, owner_role: CTO}
+  bcdr_policy: {name: BC/DR policy or plan document, owner_role: CEO}
+  security_logging: {name: Security event logging & retention, owner_role: CTO}
+  wireless_security: {name: Wireless network security monitoring, owner_role: CTO}
+  incident_response: {name: Incident response plan, owner_role: CEO}
+  ir_testing: {name: Incident response plan testing cadence, owner_role: CEO}
+  breach_notification: {name: Notification of third parties about security events, owner_role: CBO}
+  security_incident_history: {name: Security events in the last 5 years, owner_role: CEO}
+  outsourced_security: {name: Outsourced security functions (MSSP etc.), owner_role: CEO}
+  endpoint_protection: {name: Anti-virus / endpoint protection, owner_role: CTO}
+  client_network_access: {name: Access to the client's network, owner_role: CTO}
+  authorized_personnel: {name: Authorized personnel list with client access, owner_role: CBO}
+  network_architecture: {name: Network architecture & firewall/DNS standards, owner_role: CTO}
+  asset_inventory: {name: IT asset & software inventory, owner_role: CTO}
+  identity_access_management: {name: Identity & access controls, owner_role: CTO}
+  rbac: {name: Role-based access control, owner_role: CTO}
+  access_review: {name: Periodic user access reviews and cadence, owner_role: CEO}
+  mfa: {name: Multi-factor / replay-resistant authentication, owner_role: CTO}
+  authenticator_standards: {name: NIST-compliant external authenticators, owner_role: CTO}
+  least_privilege: {name: Principle of least privilege, owner_role: CTO}
+  production_access: {name: Who holds production access, owner_role: CTO}
+  password_policy: {name: Password construction, rotation, secrets management, owner_role: CTO}
+  offboarding: {name: Employee/contractor offboarding & access revocation, owner_role: CBO}
+  background_checks: {name: Background verification of personnel, owner_role: CBO}
+  risk_assessment: {name: Annual information security risk assessment, owner_role: CEO}
+  asset_prioritization: {name: Prioritisation of critical assets, owner_role: CEO}
+  penetration_testing: {name: Annual penetration testing, owner_role: CTO}
+  pentest_remediation: {name: Remediation of latest pentest findings, owner_role: CTO}
+  company_profile: {name: Legal entity, structure, HQ, countries, attestations, insurance, founders, leadership, owner_role: CEO}
+  ai_usage: {name: AI features & use of client data by AI, owner_role: CTO}
+  change_management: {name: Change management & production change approval, owner_role: CTO}
+  remote_access: {name: VPN / remote access controls, owner_role: CTO}
+  cryptography_keys: {name: Key management, owner_role: CTO}
+  vendor_list: {name: Subprocessors / critical vendors in use, owner_role: CTO}
