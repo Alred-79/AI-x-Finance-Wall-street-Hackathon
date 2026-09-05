@@ -1,0 +1,57 @@
+# ---- secrets ----
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+service-account*.json
+
+# ---- python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---- node ----
+node_modules/
+dist/
+dist-ssr/
+.vite/
+*.local
+npm-debug.log*
+yarn-error.log*
+
+# ---- app state ----
+# Generated evidence index + persisted security profile (rebuildable from data/raw)
+data/index/
+data/exports/
+*.sqlite
+*.sqlite3
+*.db
+
+# ---- data minimization ----
+# The organizer's corpus includes a W-9 tax form. It yields no machine-readable
+# text (0 evidence chunks) and is not needed to answer any questionnaire item, so
+# it is deliberately kept out of this public repo. Re-download it with the gdown
+# command in README.md if you want the byte-identical original folder.
+data/raw/**/*W-9*
+
+# ---- build artifacts ----
+*.tsbuildinfo
+
+# ---- os / editor ----
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# ---- logs / scratch ----
+logs/
+*.log
+.cache/

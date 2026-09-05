@@ -1,0 +1,12 @@
+{
+  "type": "client",
+  "name": "getOpenConflicts",
+  "description": "Get the contradictions detected between what the company's policies claim and what its assessment reports and infrastructure records actually show. Call this early in the call. For each conflict you get a conflict_id, the stated side and the observed side, so you can raise it with the employee and ask which is currently true.",
+  "expects_response": true,
+  "response_timeout_secs": 15,
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "required": []
+  }
+}

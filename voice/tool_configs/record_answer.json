@@ -1,0 +1,21 @@
+{
+  "type": "client",
+  "name": "recordAnswer",
+  "description": "Persist a specific answer the employee just confirmed, against a questionnaire question. Only call this when the employee gave a concrete, specific answer, not a vague yes. Call it again with a new value if the employee corrects themselves; the previous value is kept in history.",
+  "expects_response": true,
+  "response_timeout_secs": 15,
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "question_id": {
+        "type": "string",
+        "description": "The questionnaire question id, exactly as returned by getNextQuestion. For example '41.0'."
+      },
+      "answer": {
+        "type": "string",
+        "description": "The answer as it should appear in the questionnaire cell. Factual and specific, in the employee's own terms. For example 'Production databases are backed up automatically every day with 35 day retention; restores tested quarterly.'"
+      }
+    },
+    "required": ["question_id", "answer"]
+  }
+}

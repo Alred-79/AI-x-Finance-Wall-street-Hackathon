@@ -1,0 +1,12 @@
+{
+  "type": "client",
+  "name": "getNextQuestion",
+  "description": "Get the highest priority questionnaire questions that are still unanswered or in conflict, plus overall completion progress. Call this to decide what to ask next so you always work on the most important gap first, and never ask about something already answered.",
+  "expects_response": true,
+  "response_timeout_secs": 15,
+  "parameters": {
+    "type": "object",
+    "properties": {},
+    "required": []
+  }
+}
