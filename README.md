@@ -2,6 +2,8 @@
 
 > See your security review the way the buyer's risk team will, before you send it.
 
+**▶ [Watch the demo (1 min 52 s)](docs/demo.mp4)**
+
 Built for the Regodit track of the AI x Finance Wall Street Hackathon.
 
 ## 1. The problem
@@ -160,8 +162,9 @@ frontend/      React app: Analyst, Questionnaire, Workflows, Data, Buyer's view
 
 ## 6. The video
 
-<!-- Replace with the demo video link (at least one minute). -->
-Demo video: _link to be added_
+**▶ [Watch the demo (1 min 52 s, 1080p)](docs/demo.mp4)**
+
+The recording walks through the flow below on the seeded Neon store.
 
 Suggested walkthrough, about five minutes:
 
