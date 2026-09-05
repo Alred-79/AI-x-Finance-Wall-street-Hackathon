@@ -22,7 +22,7 @@ function Report() {
     <div className="mx-auto max-w-[760px] px-5 py-10 sm:px-6 sm:py-14">
       <header className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <p className="text-[13px] font-medium text-muted">Security review pre-flight</p>
+          <p className="flex items-center gap-2 text-[13px] font-medium text-muted"><img src="/mascot.png" alt="" className="size-5 rounded-md object-cover" width="20" height="20" /> Security review pre-flight</p>
           <h1 className="display mt-1 text-[30px] sm:text-[34px]">{vendor.legal_name} <span className="text-muted">· {vendor.brand}</span></h1>
           <p className="mt-2 text-[14px] text-muted">Generated {formatDate(generated_at, { dateStyle: 'long', timeStyle: 'short' })}. Every statement is traceable to a document, a record, an employee or a public source. Nothing is inferred.</p>
         </div>

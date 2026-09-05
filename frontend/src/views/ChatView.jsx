@@ -72,7 +72,10 @@ export default function ChatView({ status, session, speaker, role, job, actions,
 
       {status && !messages.length && !job ? (
         <div className="mb-8">
-          <h1 className="display text-[24px] sm:text-[28px]">What would you like to know?</h1>
+          <div className="flex items-center gap-4">
+            <img src="/mascot.png" alt="" className="size-14 rounded-2xl object-cover sm:size-16" width="64" height="64" />
+            <h1 className="display text-[24px] sm:text-[28px]">What would you like to know?</h1>
+          </div>
           <p className="mt-2 text-[15px] text-muted">
             {indexed
               ? <>{c.VERIFIED ?? 0} answers are already verified from documents, {(c.PARTIAL ?? 0) + (c.UNKNOWN ?? 0)} need you, and {c.CONFLICT ?? 0} have sources that disagree. Ask anything, or let me pick what matters most.</>
@@ -94,7 +97,9 @@ export default function ChatView({ status, session, speaker, role, job, actions,
             {m.role === 'user' ? (
               <div className="max-w-[88%] rounded-2xl rounded-br-md bg-surface-2 px-4 py-2.5 text-[15px] sm:max-w-[80%]">{m.content}</div>
             ) : (
-              <div className="max-w-full sm:max-w-[92%]">
+              <div className="flex max-w-full gap-3 sm:max-w-[92%]">
+                <img src="/mascot.png" alt="" className="mt-0.5 hidden size-7 shrink-0 rounded-full object-cover sm:block" width="28" height="28" />
+                <div className="min-w-0 flex-1">
                 <ActivityTrail events={m.meta?.events} status={m.meta?.status} live={m.meta?.live} evidenceCount={receipts.length} />
                 {m.content ? <div className={cx('md text-[15px]', m.meta?.live && 'caret')}><ReactMarkdown>{m.content}</ReactMarkdown></div> : null}
                 {!m.meta?.live && g?.mode === 'no_knowledge' ? <NoKnowledgeCard fallback={g.fallback} onDraft={draftQuestion} /> : null}
@@ -108,6 +113,7 @@ export default function ChatView({ status, session, speaker, role, job, actions,
                   </div>
                 ) : null}
                 {!m.meta?.live ? <MessageExtras m={m} openQuestion={openQuestion} /> : null}
+                </div>
               </div>
             )}
           </div>

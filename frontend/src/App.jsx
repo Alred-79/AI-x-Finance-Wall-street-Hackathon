@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { ChatCircleText, ClipboardText, Database, Download, FileText, FlowArrow, Moon, Scales, ShieldCheck, Sun } from '@phosphor-icons/react'
+import { ChatCircleText, ClipboardText, Database, Download, FileText, FlowArrow, Moon, Scales, Sun } from '@phosphor-icons/react'
 import { api, pollJob } from './lib/api'
 import { prefetch, readCache, writeCache } from './lib/cache'
 import { toggleTheme } from './lib/theme'
@@ -105,7 +105,7 @@ export default function App() {
       <header className="sticky top-0 z-40 border-b border-border bg-bg/80 backdrop-blur-xl">
         <div className="mx-auto flex h-13 w-full max-w-[1040px] items-center gap-2 px-4 sm:px-6">
           <button type="button" onClick={() => setView('chat')} className="mr-1 inline-flex items-center gap-2.5 font-semibold tracking-[-0.01em] sm:mr-3">
-            <span className="grid size-7 place-items-center rounded-lg bg-accent-soft text-accent"><ShieldCheck className="size-4" weight="bold" /></span>
+            <img src="/mascot.png" alt="" className="size-7 rounded-lg object-cover" width="28" height="28" />
             Security Analyst
           </button>
           <nav className="hidden items-center gap-1 sm:flex" aria-label="Primary">
