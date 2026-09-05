@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+/* Palette and type mirror findmore-me. Dark is the default. */
+:root,
+:root[data-theme="dark"] {
+  --bg: #0c1110;
+  --surface: #151d1a;
+  --surface-2: #1c2622;
+  --border: #29342f;
+  --border-strong: #46544e;
+  --text: #eaf0ec;
+  --muted: #a1aea7;
+  --faint: #718079;
+  --inverse: #111815;
+  --accent: #72bca9;
+  --accent-pressed: #8acbb9;
+  --accent-soft: #193a32;
+  --signal: #e29a62;
+  --signal-soft: #432d1f;
+  --bad: #e0716b;
+  --bad-soft: #3d1f1d;
+  --info: #8fa3bd;
+  --info-soft: #1f2a38;
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg: #f3f4ef;
+  --surface: #fcfdf9;
+  --surface-2: #e9ece6;
+  --border: #d5dbd3;
+  --border-strong: #aab5ac;
+  --text: #17201d;
+  --muted: #5f6b65;
+  --faint: #87918c;
+  --inverse: #f7faf7;
+  --accent: #1e6b5b;
+  --accent-pressed: #155143;
+  --accent-soft: #d9eae4;
+  --signal: #b8662b;
+  --signal-soft: #f2e2d5;
+  --bad: #b23a3a;
+  --bad-soft: #f5dcd9;
+  --info: #5b6e86;
+  --info-soft: #dfe6ef;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-inverse: var(--inverse);
+  --color-accent: var(--accent);
+  --color-accent-pressed: var(--accent-pressed);
+  --color-accent-soft: var(--accent-soft);
+  --color-signal: var(--signal);
+  --color-signal-soft: var(--signal-soft);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html { -webkit-text-size-adjust: 100%; height: 100%; }
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: -0.006em;
+  -webkit-font-smoothing: antialiased;
+}
+#root { min-height: 100%; }
+::selection { background: color-mix(in srgb, var(--accent) 35%, transparent); }
+* { scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
+
+.display { font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; }
+
+.rise { animation: rise 500ms var(--ease-out-expo) both; }
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } }
+
+.fade { animation: fade 300ms var(--ease-out-expo) both; }
+@keyframes fade { from { opacity: 0; } }
+
+/* streaming caret */
+.caret::after { content: ""; display: inline-block; width: 6px; height: 1em; margin-left: 2px; vertical-align: -2px; background: var(--accent); animation: blink 1s steps(2) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* shimmer for indeterminate progress */
+.shimmer { position: relative; overflow: hidden; }
+.shimmer::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 45%, transparent), transparent); animation: shimmer 1.4s var(--ease-out-expo) infinite; }
+@keyframes shimmer { to { transform: translateX(100%); } }
+
+/* markdown in chat */
+.md > :first-child { margin-top: 0; } .md > :last-child { margin-bottom: 0; }
+.md p { margin: 0 0 10px; } .md ul, .md ol { margin: 0 0 10px 20px; } .md li { margin: 3px 0; }
+.md strong { font-weight: 600; color: var(--text); }
+.md code { font-family: var(--font-mono); font-size: 12.5px; background: var(--surface-2); padding: 1px 5px; border-radius: 5px; }
+.md h1, .md h2, .md h3 { font-size: 15px; font-weight: 600; margin: 12px 0 6px; }
+.md blockquote { margin: 0 0 10px; padding-left: 12px; border-left: 2px solid var(--border-strong); color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .rise, .fade, .shimmer::after, .caret::after { animation: none; }
+}
+
+/* ---------- print (the report page) ---------- */
+@media print {
+  :root { --bg: #ffffff; --surface: #ffffff; --surface-2: #f1f3f0; --border: #d5dbd3; --text: #17201d; --muted: #4f5b56; --faint: #7a857f; }
+  body { font-size: 12.5px; }
+  .no-print { display: none !important; }
+  .break-before { break-before: page; }
+  .avoid-break { break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+  header, nav { position: static !important; }
+}
