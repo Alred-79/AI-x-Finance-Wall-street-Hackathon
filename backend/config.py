@@ -9,6 +9,15 @@ from dotenv import load_dotenv
 ROOT = Path(__file__).resolve().parents[1]
 load_dotenv(ROOT / ".env")
 
+# A blank line in .env ("OPENAI_BASE_URL=") is not equivalent to an absent one for
+# SDKs that read os.environ themselves. The OpenAI client accepts "" as a real base
+# URL, so it never applies its https://api.openai.com/v1 default and every call dies
+# as UnsupportedProtocol surfaced as a bare "Connection error". Drop blanks so an
+# unfilled .env line behaves like an unset variable.
+for _name in [n for n in os.environ if not os.environ[n].strip()]:
+    if _name.split("_")[0] in {"OPENAI", "ANTHROPIC", "ELEVENLABS", "PRISM", "PRISMTRACE", "TAVILY"}:
+        del os.environ[_name]
+
 # ---- paths ----
 DATA_DIR = ROOT / "data"
 RAW_DIR = DATA_DIR / "raw"
