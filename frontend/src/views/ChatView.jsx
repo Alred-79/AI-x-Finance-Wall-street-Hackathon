@@ -7,10 +7,11 @@ import ActivityTrail from '../components/ActivityTrail'
 import { NoKnowledgeCard, Receipts } from '../components/Evidence'
 import JobProgress from '../components/JobProgress'
 import MessageExtras from '../components/MessageExtras'
+import Posture from '../components/Posture'
 
 const SUGGESTIONS = ['Is MFA enabled?', 'Who has production access?', 'Do we perform backups?', 'How would the buyer score us right now?', 'What should we cover next?']
 
-export default function ChatView({ status, session, speaker, role, job, actions, refresh, openQuestion, pendingPrompt, clearPending }) {
+export default function ChatView({ status, session, speaker, role, job, actions, refresh, openQuestion, pendingPrompt, clearPending, goTo }) {
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
   const [busy, setBusy] = useState(false)
@@ -63,7 +64,6 @@ export default function ChatView({ status, session, speaker, role, job, actions,
   }
 
   const indexed = status?.indexed
-  const c = status?.counts || {}
 
   return (
     <div className="mx-auto max-w-[760px] rise">
@@ -78,9 +78,10 @@ export default function ChatView({ status, session, speaker, role, job, actions,
           </div>
           <p className="mt-2 text-[15px] text-muted">
             {indexed
-              ? <>{c.VERIFIED ?? 0} answers are already verified from documents, {(c.PARTIAL ?? 0) + (c.UNKNOWN ?? 0)} need you, and {c.CONFLICT ?? 0} have sources that disagree. Ask anything, or let me pick what matters most.</>
+              ? <>Here is where the company stands. Every tile is a question — click one and I'll take it from there, or ask anything below.</>
               : <>Ask anything about the company's security posture. Answers carry receipts; where the documents are silent, I'll say so and tell you who to ask.</>}
           </p>
+          {indexed ? <div className="mt-5"><Posture status={status} ask={send} openQuestion={openQuestion} goTo={goTo} /></div> : null}
           <div className="mt-5 flex flex-wrap gap-2">
             {SUGGESTIONS.map((s) => <button key={s} type="button" onClick={() => send(s)} className="rounded-full border border-border px-3.5 py-1.5 text-[14px] text-muted transition-colors hover:border-border-strong hover:text-text">{s}</button>)}
           </div>

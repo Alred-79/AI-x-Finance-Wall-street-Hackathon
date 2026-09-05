@@ -49,7 +49,7 @@ export default function App() {
   // Warm the other views once the shell is up, one request at a time, so switching tabs is instant.
   useEffect(() => {
     if (!status) return
-    const t = setTimeout(() => prefetch([['workflows', api.workflows], ['overview', api.overview], ['score', api.score], ['exceptions', api.exceptions], ['reputational', api.reputational]]), 800)
+    const t = setTimeout(() => prefetch([['workflows', api.workflows], ['overview', api.overview], ['open_items', () => api.openItems()], ['score', api.score], ['exceptions', api.exceptions], ['reputational', api.reputational]]), 800)
     return () => clearTimeout(t)
   }, [status?.indexed]) // eslint-disable-line react-hooks/exhaustive-deps
   // A job started server-side (auto-index on first start, or from another tab) is adopted here so progress is visible.
@@ -136,7 +136,7 @@ export default function App() {
 
       <main className="mx-auto w-full max-w-[1040px] px-4 py-6 sm:px-6 sm:py-8">
         {error ? <p className="mb-4 rounded-[10px] border border-bad/30 bg-bad-soft/40 px-4 py-2.5 text-[13.5px] text-bad">{error}</p> : null}
-        {view === 'chat' && <ChatView {...common} session={session} pendingPrompt={pendingPrompt} clearPending={() => setPendingPrompt(null)} />}
+        {view === 'chat' && <ChatView {...common} session={session} pendingPrompt={pendingPrompt} clearPending={() => setPendingPrompt(null)} goTo={setView} />}
         {view === 'questions' && <QuestionnaireView {...common} focusQid={focusQid} />}
         {view === 'workflows' && <WorkflowsView {...common} />}
         {view === 'data' && <DataView {...common} />}

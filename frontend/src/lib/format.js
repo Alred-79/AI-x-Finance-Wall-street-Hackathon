@@ -14,3 +14,15 @@ export const STATUS = {
   UNKNOWN: { label: 'Unknown', short: 'Unknown', tone: 'neutral', color: 'text-faint' },
 }
 export const STATUS_ORDER = ['VERIFIED', 'CONFIRMED_BY_USER', 'PARTIAL', 'CONFLICT', 'UNKNOWN']
+
+/* Sequential single-hue ramp (accent → surface), monotone in lightness on both themes. */
+export const ramp = (t) => `color-mix(in oklab, var(--accent) ${Math.round(18 + 82 * t)}%, var(--surface))`
+/* Ordered assurance scale: verified darkest → unknown lightest. */
+export const STATUS_RAMP = { VERIFIED: 1, CONFIRMED_BY_USER: 0.78, PARTIAL: 0.5, CONFLICT: 0.3, UNKNOWN: 0.12 }
+
+const TOPIC_SHORT = {
+  'Third-Party Risk Management': 'Third parties', 'Security Awareness & Training': 'Training', 'Business Continuity & Disaster Recovery': 'BC / DR',
+  'Network & Endpoint Security': 'Network & endpoints', 'Web Application Security': 'Web app', 'Vulnerability Management': 'Vulnerabilities',
+  'Incident Response': 'Incidents', 'Asset Management': 'Assets & access', 'Physical Security': 'Physical', 'Risk Assessment': 'Risk & pentest',
+}
+export const shortTopic = (t) => TOPIC_SHORT[t] || t

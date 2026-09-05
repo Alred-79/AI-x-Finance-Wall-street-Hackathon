@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { ArrowSquareOut, WarningDiamond } from '@phosphor-icons/react'
 import { api } from '../lib/api'
 import { AUTHORITY, Button, Panel, Rows, Section, Spinner, Tag, cx } from '../components/ui'
-import { STATUS, STATUS_ORDER } from '../lib/format'
+import { STATUS, STATUS_ORDER, STATUS_RAMP, ramp } from '../lib/format'
 import JobProgress from '../components/JobProgress'
 import DashboardView from './DashboardView'
 import { useResource } from '../lib/cache'
@@ -12,9 +12,6 @@ const TIER_COLS = ['record', 'attestation', 'policy', 'template', 'employee', 'p
 const TIER_LABEL = { record: 'Records', attestation: 'Attestation', policy: 'Policies', template: 'Templates', employee: 'Employees', public: 'Public web' }
 const GROUP_LABEL = { access: 'Access', authentication: 'Authentication', resilience: 'Resilience', vulnerability: 'Vulnerability', people: 'People', governance: 'Governance', incident: 'Incident & network', data: 'Data & privacy', other: 'Other' }
 
-/* Sequential single-hue ramp (accent → surface). Steps are monotone in lightness on both themes. */
-const ramp = (t) => `color-mix(in oklab, var(--accent) ${Math.round(18 + 82 * t)}%, var(--surface))`
-const STATUS_RAMP = { VERIFIED: 1, CONFIRMED_BY_USER: 0.78, PARTIAL: 0.5, CONFLICT: 0.3, UNKNOWN: 0.12 }
 
 export default function DataView({ status, job, actions, openQuestion, startChat }) {
   const [tab, setTab] = useState(() => localStorage.getItem('dataTab') || 'dashboard')
