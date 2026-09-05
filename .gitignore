@@ -1,8 +1,13 @@
+
 __pycache__/
-*.pyc
-.venv/
-venv/
+.DS_Store
 .env
 .pytest_cache/
+.venv/
 *.egg-info/
-.DS_Store
+*.pyc
+# app data & secrets
+data/
+frontend/dist/
+frontend/node_modules/
+venv/
