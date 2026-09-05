@@ -1,0 +1,24 @@
+# Effort estimates for closing common gaps, keyed by control. Used by the fix-first list.
+# hours: rough engineering effort; action: what to do.
+fixes:
+  vulnerability_scanning: {hours: 2, action: "Enable Dependabot/GitHub code scanning and AWS Inspector; record cadence in the Vulnerability & Patch Management Policy."}
+  public_security_policy: {hours: 3, action: "Publish a /security (trust) page summarising controls and attestations; link the information security policy summary."}
+  vulnerability_disclosure: {hours: 1, action: "Publish security@ contact and /.well-known/security.txt; add a responsible-disclosure paragraph to the security page."}
+  privacy_policy: {hours: 2, action: "Publish the privacy policy at a stable URL and reference it in the questionnaire."}
+  ir_testing: {hours: 3, action: "Run one tabletop exercise, record date/outcome, set an annual cadence in the Incident Management Policy §11."}
+  backup_recovery: {hours: 4, action: "Perform and document the first restore test into a non-production environment; record RTO/RPO achieved."}
+  pentest_remediation: {hours: 16, action: "Remediate the High (missing authentication) and Medium VAPT findings; obtain a retest letter."}
+  physical_security: {hours: 2, action: "Add a short Physical Security section (remote-first, no premises, device safeguards) to the Information Security Policy or issue a one-page policy."}
+  production_access: {hours: 1, action: "Execute the revocations from the Sept 4 access review; reconcile admin list with the Access Control Policy §5."}
+  access_review: {hours: 1, action: "Close out the access-review actions and store the signed-off record; consider quarterly cadence for production systems."}
+  offboarding: {hours: 2, action: "Add an 'access revoked (date, by)' field to the offboarding checklist and cross-check against IAM on exit."}
+  security_training: {hours: 2, action: "Run the annual training cycle for all personnel and export completion records."}
+  mfa: {hours: 8, action: "Add authentication to the product endpoints flagged in the VAPT; confirm corporate MFA coverage with an IdP export."}
+  password_policy: {hours: 1, action: "Align SOC 2 description with the Password & Secrets Policy on rotation; pick one and document."}
+  data_location: {hours: 0.5, action: "Record the AWS region and whether India-based personnel access customer data; state it in the Data Classification Policy."}
+  endpoint_protection: {hours: 3, action: "Enrol all devices in MDM and document EDR/AV (e.g. built-in OS protection + MDM compliance report)."}
+  company_profile: {hours: 4, action: "Obtain a Certificate of Insurance with cyber liability coverage; confirm the SOC 2 report entity and period with the auditor."}
+  wireless_security: {hours: 0.5, action: "State that no corporate wireless network is operated (remote-first) or document monitoring."}
+  sso_support: {hours: 8, action: "Add SSO (SAML/OIDC) to the product roadmap with a target date."}
+  third_party_risk: {hours: 1, action: "Attach the Vendor Risk Management Policy and the critical-vendor list."}
+  data_retention_disposal: {hours: 2, action: "Extract the retention schedule from the Data Classification Policy into a standalone table and add disposal steps."}
