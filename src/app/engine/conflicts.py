@@ -7,6 +7,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from ..config import settings
 from ..llm import json_call
+from ..observability import prism
 from ..store.db import Store, loads, now
 
 # Related controls are judged together so cross-document contradictions surface.
@@ -83,7 +84,8 @@ def judge_group(store: Store, name: str, controls: list[str]) -> list[dict]:
         return []
     user = f"GROUP: {name}\n\nCLAIMS ({len(claims)}):\n{_format(claims)}"
     system = SYSTEM.replace("{aliases}", _aliases())
-    data = json_call(system, user, model=settings.model_agent, max_tokens=4000)
+    with prism.step("conflict_judge", group=name, claims=len(claims)):
+        data = json_call(system, user, model=settings.model_agent, max_tokens=4000)
     found = data.get("conflicts", []) if isinstance(data, dict) else []
     valid_ids = {f"C{c['id']}" for c in claims}
     out = []

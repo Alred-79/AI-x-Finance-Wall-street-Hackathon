@@ -15,6 +15,7 @@ from typing import Any
 from openai import OpenAI
 
 from .config import settings
+from .observability import prism
 
 _client: OpenAI | None = None
 
@@ -22,17 +23,40 @@ _client: OpenAI | None = None
 def client() -> OpenAI:
     global _client
     if _client is None:
-        if not settings.openrouter_api_key:
-            raise RuntimeError("OPENROUTER_API_KEY is not set (see .env.example)")
+        if not settings.llm_api_key:
+            raise RuntimeError(
+                "No model endpoint configured. Set OPENROUTER_API_KEY, or set LLM_BASE_URL to a "
+                "local OpenAI-compatible server (e.g. GIDE's local API). See .env.example."
+            )
         _client = OpenAI(
-            api_key=settings.openrouter_api_key,
-            base_url=settings.openrouter_base_url,
+            api_key=settings.llm_api_key,
+            base_url=settings.llm_base_url,
             default_headers={
                 "HTTP-Referer": "https://github.com/regodit-security-analyst",
                 "X-Title": "AI Security Analyst",
             },
         )
     return _client
+
+
+def _tokens(usage) -> tuple[int, int]:
+    return (int(getattr(usage, "prompt_tokens", 0) or 0), int(getattr(usage, "completion_tokens", 0) or 0)) if usage else (0, 0)
+
+
+def _trace(model: str, messages: list, msg, started: float, usage=None) -> None:
+    """Send one completed call to PRISM. The phase/qid tags come from prism.step() at the call site."""
+    tool_calls = [t.function.name for t in (getattr(msg, "tool_calls", None) or []) if getattr(t, "function", None)]
+    output = getattr(msg, "content", None) or ""
+    if tool_calls:
+        output = (output + " " if output else "") + "→ tools: " + ", ".join(tool_calls)
+    tin, tout = _tokens(usage)
+    prism.trace_llm(model=model, messages=messages, output=output, latency_ms=int((time.time() - started) * 1000),
+                    tokens_in=tin, tokens_out=tout, metadata={"tool_calls": tool_calls} if tool_calls else None)
+
+
+def _trace_error(model: str, messages: list, err: Exception, started: float, attempt: int) -> None:
+    prism.trace_llm(model=model, messages=messages, output=f"ERROR {type(err).__name__}: {err}"[:2000],
+                    latency_ms=int((time.time() - started) * 1000), metadata={"error": True, "attempt": attempt})
 
 
 def chat(
@@ -56,11 +80,15 @@ def chat(
         kwargs["tool_choice"] = "auto"
     last: Exception | None = None
     for attempt in range(retries):
+        started = time.time()
         try:
             resp = client().chat.completions.create(**kwargs)
-            return resp.choices[0].message
+            msg = resp.choices[0].message
+            _trace(kwargs["model"], messages, msg, started, getattr(resp, "usage", None))
+            return msg
         except Exception as e:  # noqa: BLE001 - retry on any transport/rate error
             last = e
+            _trace_error(kwargs["model"], messages, e, started, attempt)
             time.sleep(1.5 * (attempt + 1))
     raise RuntimeError(f"LLM call failed after {retries} attempts: {last}")
 
@@ -101,17 +129,30 @@ def chat_stream(
         kwargs["tools"] = tools
         kwargs["tool_choice"] = "auto"
     acc = StreamedMessage()
-    for chunk in client().chat.completions.create(**kwargs):
-        if not chunk.choices:
-            continue
-        delta = chunk.choices[0].delta
-        if delta is None:
-            continue
-        if delta.content:
-            acc.content += delta.content
-            yield "delta", delta.content
-        for tc in delta.tool_calls or []:
-            acc.add_tool_delta(tc)
+    started = time.time()
+    usage = None
+    try:
+        for chunk in client().chat.completions.create(**kwargs):
+            usage = getattr(chunk, "usage", None) or usage
+            if not chunk.choices:
+                continue
+            delta = chunk.choices[0].delta
+            if delta is None:
+                continue
+            if delta.content:
+                acc.content += delta.content
+                yield "delta", delta.content
+            for tc in delta.tool_calls or []:
+                acc.add_tool_delta(tc)
+    except Exception as e:  # noqa: BLE001 - trace the failure, then let the caller handle it
+        _trace_error(kwargs["model"], messages, e, started, 0)
+        raise
+    tin, tout = _tokens(usage)
+    names = [t["name"] for t in acc.tool_calls if t.get("name")]
+    output = acc.content + (" → tools: " + ", ".join(names) if names else "")
+    prism.trace_llm(model=kwargs["model"], messages=messages, output=output,
+                    latency_ms=int((time.time() - started) * 1000), tokens_in=tin, tokens_out=tout,
+                    metadata={"streamed": True, **({"tool_calls": names} if names else {})})
     yield "message", acc
 
 

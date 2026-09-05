@@ -7,6 +7,7 @@ resolve conflicts, and trigger web research. Answers are derived from evidence b
 from __future__ import annotations
 
 import json
+import time
 from typing import Any
 
 from ..catalog.loader import get_catalog
@@ -16,6 +17,7 @@ from ..engine.pipeline import record_user_fact, resolve_conflict
 from ..engine.planner import open_items
 from ..engine.search import index_for
 from ..llm import chat
+from ..observability import prism
 from ..store.db import Store, loads, now
 
 MAX_STEPS = 8
@@ -99,6 +101,7 @@ class Agent:
         self.extras: dict = {}          # any other structured payload a feature wants in the done event
         self.asked: dict | None = None  # last who_to_ask result this turn (see grounding)
         self.user_text: str = ""
+        self._started: float = 0.0
 
     # ---- tool implementations
     def t_search_evidence(self, query: str, control: str | None = None, k: int = 8):
@@ -223,6 +226,11 @@ class Agent:
                "visuals": self.visuals, **self.extras}
         self.store.insert("messages", {"session": self.session, "role": "assistant", "content": reply,
                                        "meta": json.dumps({k: v for k, v in out.items() if k != "reply"}), "created_at": now()})
+        # The whole turn as an ordered trajectory, so PRISM can evaluate whether the analyst searched
+        # before it asked and whether the reply it landed on was actually grounded.
+        prism.submit_trajectory(session=self.session, user_text=self.user_text, reply=reply, events=self.events,
+                                grounding=self.extras.get("grounding"),
+                                duration_ms=int((time.time() - self._started) * 1000) if self._started else 0)
         return out
 
     def run_stream(self, user_text: str):
@@ -230,6 +238,7 @@ class Agent:
         from ..llm import chat_stream
 
         self.user_text = user_text
+        self._started = time.time()
         self.store.insert("messages", {"session": self.session, "role": "user", "content": user_text, "meta": "", "created_at": now()})
         cat = get_catalog()
         web_hint = ("if it helps, call web_research and report what the public web says with [public: domain] receipts, labelled explicitly as public information, not company fact"

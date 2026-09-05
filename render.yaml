@@ -14,6 +14,10 @@ services:
         sync: false
       - key: DATABASE_URL
         sync: false
+      - key: PRISMTRACE_API_KEY
+        sync: false
+      - key: PRISMTRACE_PROJECT_ID
+        sync: false
       - key: AUTO_INDEX
         value: "0"
       - key: LLM_MODEL_AGENT

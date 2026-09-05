@@ -11,6 +11,7 @@ const post = (u, body) => fetch(u, { method: 'POST', headers: { 'Content-Type': 
 
 export const api = {
   status: () => get('/api/status'),
+  prism: () => get('/api/prism'),
   run: () => post('/api/run'),
   research: (mode = 'all') => post(`/api/research?mode=${encodeURIComponent(mode)}`),
   job: (id) => get(`/api/jobs/${id}`),
