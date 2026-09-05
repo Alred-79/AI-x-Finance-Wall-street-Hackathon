@@ -1,0 +1,21 @@
+{
+  "type": "client",
+  "name": "resolveConflict",
+  "description": "Close a detected conflict using the employee's explanation of what is actually true. Only call this after the employee has explained the discrepancy.",
+  "expects_response": true,
+  "response_timeout_secs": 15,
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "conflict_id": {
+        "type": "string",
+        "description": "The conflict_id returned by getOpenConflicts."
+      },
+      "resolution": {
+        "type": "string",
+        "description": "What the employee said is actually true, and any date or owner they gave. For example 'The contractor's admin access was revoked on 2026-08-30; the access review export predates the revocation.'"
+      }
+    },
+    "required": ["conflict_id", "resolution"]
+  }
+}

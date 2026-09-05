@@ -1,0 +1,20 @@
+{
+  "type": "client",
+  "name": "recordFact",
+  "description": "Persist a useful fact the employee mentioned that is not tied to one specific questionnaire question, so it can be reused later and never asked again.",
+  "expects_response": false,
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "subject": {
+        "type": "string",
+        "description": "A short topic label for the fact, such as 'cloud provider' or 'security owner'."
+      },
+      "statement": {
+        "type": "string",
+        "description": "What the employee said, in their own terms. Do not embellish beyond their words."
+      }
+    },
+    "required": ["subject", "statement"]
+  }
+}

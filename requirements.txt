@@ -1,5 +1,20 @@
-pandas
-numpy
-requests
-python-dotenv
-pytest
+# RiskAndCompliance — AI Security Analyst (Python 3.10+)
+fastapi>=0.115
+uvicorn[standard]>=0.32
+python-dotenv>=1.0
+requests>=2.32
+
+# document ingestion
+python-docx>=1.1
+openpyxl>=3.1
+pypdf>=5.0
+
+# retrieval
+rank-bm25>=0.2.2
+
+# reasoning (one of these; both optional — the app degrades honestly without them)
+openai>=1.54
+anthropic>=0.39
+
+# dataset download
+gdown>=5.2

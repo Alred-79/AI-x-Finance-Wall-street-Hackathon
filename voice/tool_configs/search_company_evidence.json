@@ -1,0 +1,17 @@
+{
+  "type": "client",
+  "name": "searchCompanyEvidence",
+  "description": "Search the company's own documents (policies, SOC 2 report, penetration test report, contracts, asset inventory, access review records) for evidence about a security control. You MUST call this before asking the employee any factual question about the company's security. Returns evidence excerpts, each with a can_prove_control flag: when that flag is false the excerpt is a blank form or an unread diagram and proves nothing.",
+  "expects_response": true,
+  "response_timeout_secs": 15,
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string",
+        "description": "The security topic to search for, in plain words. For example: 'production database backup frequency and retention', 'multi-factor authentication enforcement', 'employee background verification'."
+      }
+    },
+    "required": ["query"]
+  }
+}
