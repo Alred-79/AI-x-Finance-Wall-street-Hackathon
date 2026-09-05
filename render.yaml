@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: security-analyst
+    runtime: docker
+    plan: standard
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/status
+    numInstances: 1
+    envVars:
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: TAVILY_API_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: AUTO_INDEX
+        value: "0"
+      - key: LLM_MODEL_AGENT
+        value: openai/gpt-5.6-terra
+      - key: LLM_MODEL_FAST
+        value: openai/gpt-5.6-luna
+      - key: LLM_MODEL_VISION
+        value: openai/gpt-5.6-terra
+      - key: VENDOR_LEGAL_NAME
+        value: Solsphere AI Inc.
+      - key: VENDOR_BRAND
+        value: Regodit
+      - key: VENDOR_DOMAIN
+        value: regodit.com
