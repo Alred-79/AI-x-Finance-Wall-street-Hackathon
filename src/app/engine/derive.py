@@ -14,6 +14,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from ..catalog.loader import Question, get_catalog
 from ..config import settings
 from ..llm import json_call
+from ..observability import prism
 from ..store.db import Store, loads, now
 from .conflicts import open_conflicts_for
 
@@ -140,7 +141,8 @@ def derive_question(store: Store, q: Question) -> dict:
         f"{'; options: ' + ', '.join(q.options) if q.options else ''}):\n{q.text}\n\n"
         f"SLOTS:\n" + "\n".join(f"- {k}: {v}" for k, v in q.slots.items()) + "\n\nEVIDENCE:\n" + _format_bundle(b)
     )
-    data = json_call(system, user, model=settings.model_agent, max_tokens=2500)
+    with prism.step("derive", qid=q.qid, topic=q.topic, criticality=q.criticality or "informational"):
+        data = json_call(system, user, model=settings.model_agent, max_tokens=2500)
     slot_assessment = data.get("slot_assessment") or {}
     evidence_ids = [str(i) for i in (data.get("evidence_ids") or [])]
     answer_value = str(data.get("answer_value") or "Unknown")
@@ -149,12 +151,26 @@ def derive_question(store: Store, q: Question) -> dict:
     evidence = _resolve_evidence(b, evidence_ids)
     response = str(data.get("response") or "").strip()
     comments = str(data.get("comments") or "").strip()
+    # Citations the model produced that match nothing in the evidence bundle it was given.
+    dropped = [i for i in evidence_ids if i not in {e["id"] for e in evidence}]
+    reasons: list[str] = []
+    if dropped:
+        reasons.append(f"dropped {len(dropped)} citation(s) matching no supplied evidence: {', '.join(dropped[:6])}")
     if status == "UNKNOWN" or not evidence:
+        if answer_value not in ("Unknown", ""):
+            reasons.append(f"model answered {answer_value!r} with no usable evidence; forced to Unknown")
+        elif not evidence:
+            reasons.append("no evidence resolved; answer withheld")
         response = "Unknown — needs confirmation"
         conf = 0.0
         comments = _unknown_comment(q.owner_role, comments)
+    elif status == "CONFLICT" and answer_value not in ("Unknown", ""):
+        reasons.append(f"model answered {answer_value!r} while sources are in open conflict; capped at CONFLICT")
     elif status in ("VERIFIED", "CONFIRMED_BY_USER"):
         response = _with_receipts(response, evidence)
+    if reasons:
+        prism.trace_override(qid=q.qid, model_answer=answer_value, final_status=status,
+                             confidence=conf, reasons=reasons, dropped_evidence=dropped)
     row = {
         "qid": q.qid, "status": status, "answer": response, "comments": comments,
         "confidence": conf, "evidence": evidence, "open_slots": open_slots,

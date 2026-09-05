@@ -85,7 +85,8 @@ that control, with the real person where the documents name one.
 | Layer | Choice |
 |---|---|
 | Backend | Python 3.13, FastAPI, server-sent events for streaming chat |
-| Models | Any OpenAI-compatible model through OpenRouter (agent, extraction, judging, vision); model IDs are configurable |
+| Models | Any OpenAI-compatible model through OpenRouter (agent, extraction, judging, vision); model IDs are configurable. Point `LLM_BASE_URL` at a local server — GIDE's local API running Ornith 1.0 9B — and the whole analyst runs offline |
+| Observability | PRISM by Block Convey (`prismtrace-sdk`): every model call, every guardrail override, every agent turn as an evaluated trajectory |
 | Embeddings | fastembed (`BAAI/bge-small-en-v1.5`, 384-d) running locally on CPU, since OpenRouter exposes no embedding models |
 | Storage | One store API with two dialects: SQLite for zero-config local use, Postgres on Neon with pgvector for persistence and ANN search |
 | Retrieval | Hybrid: dense cosine (0.6) blended with BM25 (0.4) |
@@ -100,7 +101,7 @@ that control, with the real person where the documents name one.
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env            # OPENROUTER_API_KEY, TAVILY_API_KEY, optional DATABASE_URL
+cp .env.example .env            # OPENROUTER_API_KEY, TAVILY_API_KEY, PRISMTRACE_*, optional DATABASE_URL
 cd frontend && npm install && npm run build && cd ..
 
 python -m src.app.index         # index once into the configured store
@@ -112,17 +113,64 @@ indexes automatically on first start and shows progress in the UI. `AUTO_INDEX=0
 
 ```
 src/app/
-  ingest/      parsers, authority tagging, template detection, chunking, indexer
-  extract/     claim extraction
-  catalog/     controls, question slot mapping, buyer rules extracted from the workbook, fix catalog
-  store/       one Store API, two dialects
-  engine/      search, embeddings, conflicts, derive, planner, scorer, workflows, overview, diagrams, dashboards
-  research/    Tavily client, live probe, outside-in orchestrator
-  agent/       streaming tool-using analyst, grounding, extra tools
-  export/      workbook filler, report data
-  api/         FastAPI routes
-frontend/      React app: Analyst, Questionnaire, Workflows, Data, Buyer's view
+  ingest/         parsers, authority tagging, template detection, chunking, indexer
+  extract/        claim extraction
+  catalog/        controls, question slot mapping, buyer rules extracted from the workbook, fix catalog
+  store/          one Store API, two dialects
+  engine/         search, embeddings, conflicts, derive, planner, scorer, workflows, overview, diagrams, dashboards
+  research/       Tavily client, live probe, outside-in orchestrator
+  agent/          streaming tool-using analyst, grounding, extra tools
+  observability/  PRISM tracing: model calls, guardrail overrides, trajectories
+  export/         workbook filler, report data
+  api/            FastAPI routes
+frontend/         React app: Analyst, Questionnaire, Workflows, Data, Buyer's view, PRISM
 ```
+
+### Observability: proving the golden rule with PRISM
+
+The claim this product rests on is that it cannot state a fact it cannot cite. A claim like that is worth
+exactly as much as the evidence behind it — which is what [PRISM by Block Convey](https://prism.blockconvey.com)
+is here for. Set `PRISMTRACE_API_KEY` and `PRISMTRACE_PROJECT_ID`; without them every trace is a silent no-op and
+the app behaves exactly as before.
+
+Three things are traced, from `src/app/observability/prism.py`:
+
+| What | Where it comes from |
+|---|---|
+| **Every model call** | `llm.chat` and `llm.chat_stream` are the only two places this app talks to a model, so one wrapper covers claim extraction, conflict judging, answer derivation, exception drafting, vision and every agent turn. Calls are tagged with phase, question id and control through a `prism.step()` context manager. |
+| **Every guardrail override** | The important one. Status and confidence are computed in code, not by the model. When the engine overrules it — the model asserted "Yes", the evidence did not support it, the answer became `UNKNOWN` — that is traced with `override=true`, the reasons, and any citation the model invented that matched nothing it was given. |
+| **Every agent turn** | Tool calls become ordered trajectory steps and PRISM evaluates the whole turn, so "did the analyst search before it asked?" is a score rather than a claim. A turn that asserted facts with no company evidence behind it is submitted as a failure, not a success. |
+
+The **PRISM** tab in the app shows the live counters, and every override with the model's original answer beside
+what was actually recorded. `GET /api/prism` returns the same data.
+
+Why the override count is the number worth watching: in 2026 the highest-profile AI compliance startup was found
+to have shipped 493 of 494 SOC 2 reports with near-identical text and auditor conclusions written before any
+client submitted evidence. "Our AI fills out compliance paperwork" is not a claim anyone should accept on trust
+any more. The override counter is what we can show instead — the number of times the model tried to overreach
+and the architecture stopped it.
+
+`tests/test_prism.py` covers this directly, including the exact failure above: a model that answers "Yes" while
+citing evidence that does not exist must produce `UNKNOWN` and a recorded override.
+
+### Offline mode with GIDE
+
+`LLM_BASE_URL` points inference at any OpenAI-compatible server instead of OpenRouter. The documented option is
+[GIDE](https://gide.dev)'s local API running Ornith 1.0 9B, which makes the whole analyst run on the machine in
+front of you with no internet connection:
+
+```bash
+LLM_BASE_URL=http://localhost:<gide-port>/v1   # GIDE's local OpenAI-compatible server
+LLM_API_KEY=local
+LLM_MODEL_AGENT=ornith-1.0-9b
+```
+
+This is not a footnote for this product in particular. The corpus being reasoned over *is* the company's security
+posture — unremediated pentest findings, the admin list, the access review. And question 31 of the workbook this
+tool fills in asks, in as many words, whether the customer's data will be touched by AI during the engagement. A
+tool that answers security questionnaires should be able to answer that one with "no — nothing left the laptop".
+When inference is local the app shows an **Offline** badge in the header and `/api/status` reports
+`inference.local`.
 
 ## 5. The features
 
@@ -161,6 +209,12 @@ frontend/      React app: Analyst, Questionnaire, Workflows, Data, Buyer's view
 **Memory**
 - Everything persists in Postgres: claims, statements with speaker and time, conflicts and their resolutions, chat
   history, saved charts. Corrections supersede rather than erase.
+
+**PRISM**
+- Live counters for model calls traced, agent turns evaluated, and guardrail overrides caught.
+- Every override listed with what the model wanted to say beside what was actually recorded, the reason, and any
+  citation it invented. This is the evidence for "it never makes anything up", rather than the assertion.
+- Runs offline against GIDE's local model with an **Offline** badge in the header when it does.
 
 ## 6. The video
 

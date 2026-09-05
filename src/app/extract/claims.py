@@ -9,6 +9,7 @@ from pathlib import Path
 from ..catalog.loader import get_catalog
 from ..config import settings
 from ..llm import json_call
+from ..observability import prism
 
 CACHE = settings.data_dir / "cache" / "claims"
 
@@ -68,7 +69,8 @@ def extract_claims(chunk_text: str, doc_meta: dict) -> list[dict]:
         f"SECTION: {doc_meta.get('heading') or ''}\n\nCONTROL IDS:\n{cat.control_description_block()}\n- other\n\n"
         f"TEXT:\n\"\"\"\n{chunk_text}\n\"\"\""
     )
-    data = json_call(SYSTEM, user, model=settings.model_fast, max_tokens=6000)
+    with prism.step("claim_extraction", document=doc_meta.get("name"), doc_type=doc_meta.get("doc_type")):
+        data = json_call(SYSTEM, user, model=settings.model_fast, max_tokens=6000)
     claims = data.get("claims", []) if isinstance(data, dict) else data
     valid = set(cat.control_ids()) | {"other"}
     out = []
