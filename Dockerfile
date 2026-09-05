@@ -14,6 +14,7 @@ RUN pip install -r requirements.txt
 COPY src ./src
 COPY datasets ./datasets
 COPY --from=web /web/dist ./frontend/dist
-RUN mkdir -p data/cache/fastembed && python -c "from fastembed import TextEmbedding; TextEmbedding('BAAI/bge-small-en-v1.5', cache_dir='data/cache/fastembed')"
+RUN mkdir -p /app/data/cache/fastembed && python -c "from fastembed import TextEmbedding; TextEmbedding('BAAI/bge-small-en-v1.5', cache_dir='/app/data/cache/fastembed')" \
+    || echo "embedding model warm-up skipped; it will download on first use"
 EXPOSE 8000
 CMD ["sh", "-c", "uvicorn src.app.main:app --host 0.0.0.0 --port ${PORT}"]
